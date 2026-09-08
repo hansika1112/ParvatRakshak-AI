@@ -20,3 +20,8 @@ data/processed/**
 *.joblib
 
 .DS_Store
+
+# External geospatial source data
+data/external/ner_boundary/**
+!data/external/ner_boundary/**/
+!data/external/ner_boundary/**/.gitkeep
