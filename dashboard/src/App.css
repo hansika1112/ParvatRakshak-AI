@@ -540,3 +540,86 @@ footer {
   font-size: 12px;
   line-height: 1.5;
 }
+
+.kpi-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.kpi-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+.kpi-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.kpi-card > div {
+  min-width: 0;
+}
+
+.kpi-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.kpi-value {
+  display: block;
+  margin-top: 4px;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.kpi-description {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.kpi-value.risk-low {
+  color: #16a34a;
+}
+
+.kpi-value.risk-medium {
+  color: #ca8a04;
+}
+
+.kpi-value.risk-high {
+  color: #ea580c;
+}
+
+.kpi-value.risk-critical {
+  color: #dc2626;
+}
+
+@media (max-width: 1100px) {
+  .kpi-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .kpi-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Keep KPI cards across the full dashboard width */
+.kpi-section {
+  grid-column: 1 / -1;
+}

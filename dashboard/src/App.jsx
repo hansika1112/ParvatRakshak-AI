@@ -181,6 +181,67 @@ function App() {
 
       <main className="main-content">
 
+
+          <section className="kpi-section">
+
+            <div className="kpi-card">
+              <span className="kpi-icon">📍</span>
+              <div>
+                <span className="kpi-label">GSI Locations</span>
+                <strong className="kpi-value">
+                  {loading ? "—" : locations.length.toLocaleString()}
+                </strong>
+                <span className="kpi-description">
+                  Historical Records
+                </span>
+              </div>
+            </div>
+
+            <div className="kpi-card">
+              <span className="kpi-icon">🤖</span>
+              <div>
+                <span className="kpi-label">AI Risk</span>
+                <strong className={`kpi-value risk-${riskLevelClass || "none"}`}>
+                  {riskAnalysis?.prediction?.risk_level || "—"}
+                </strong>
+                <span className="kpi-description">
+                  Current Prototype Risk
+                </span>
+              </div>
+            </div>
+
+            <div className="kpi-card">
+              <span className="kpi-icon">🌧️</span>
+              <div>
+                <span className="kpi-label">7-Day Rainfall</span>
+                <strong className="kpi-value">
+                  {riskAnalysis?.weather?.rainfall_7d != null
+                    ? `${riskAnalysis.weather.rainfall_7d} mm`
+                    : "—"}
+                </strong>
+                <span className="kpi-description">
+                  Recent Weather
+                </span>
+              </div>
+            </div>
+
+            <div className="kpi-card">
+              <span className="kpi-icon">⛰️</span>
+              <div>
+                <span className="kpi-label">Slope</span>
+                <strong className="kpi-value">
+                  {selectedLocation
+                    ? `${selectedLocation.slope.toFixed(2)}°`
+                    : "—"}
+                </strong>
+                <span className="kpi-description">
+                  Selected Location
+                </span>
+              </div>
+            </div>
+
+          </section>
+
         <section className="map-section">
 
           <div className="section-header">
