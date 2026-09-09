@@ -299,3 +299,46 @@ footer {
     height: 450px !important;
   }
 }
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.filter-container label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.filter-container select {
+  min-width: 180px;
+  padding: 9px 34px 9px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  background: white;
+  color: #172033;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+.filter-container select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+@media (max-width: 700px) {
+  .filter-container {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .filter-container select {
+    flex: 1;
+  }
+}

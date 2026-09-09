@@ -12,6 +12,18 @@ import "./App.css";
 
 const API_URL = "http://127.0.0.1:8000";
 
+const STATES = [
+  "All States",
+  "Arunachal Pradesh",
+  "Assam",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Sikkim",
+  "Tripura"
+];
+
 function MapBounds({ locations }) {
   const map = useMap();
 
@@ -43,6 +55,7 @@ function MapBounds({ locations }) {
 function App() {
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedState, setSelectedState] = useState("All States");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -51,9 +64,15 @@ function App() {
       try {
         setLoading(true);
         setError("");
+        setSelectedLocation(null);
+
+        const stateQuery =
+          selectedState === "All States"
+            ? ""
+            : `&state=${encodeURIComponent(selectedState)}`;
 
         const response = await fetch(
-          `${API_URL}/locations?limit=1000&offset=0`
+          `${API_URL}/locations?limit=1000&offset=0${stateQuery}`
         );
 
         if (!response.ok) {
@@ -68,13 +87,14 @@ function App() {
         setError(
           "Unable to load GSI locations. Please make sure the FastAPI backend is running."
         );
+        setLocations([]);
       } finally {
         setLoading(false);
       }
     }
 
     fetchLocations();
-  }, []);
+  }, [selectedState]);
 
   return (
     <div className="dashboard">
@@ -98,16 +118,40 @@ function App() {
         <section className="map-section">
 
           <div className="section-header">
+
             <div>
               <h2>NER Historical Landslide Map</h2>
               <p>GSI Historical Landslide Locations</p>
             </div>
 
-            <div className="location-count">
-              {loading
-                ? "Loading..."
-                : `${locations.length.toLocaleString()} locations`}
+            <div className="filter-container">
+
+              <label htmlFor="state-filter">
+                State
+              </label>
+
+              <select
+                id="state-filter"
+                value={selectedState}
+                onChange={(event) =>
+                  setSelectedState(event.target.value)
+                }
+              >
+                {STATES.map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
+
+              <div className="location-count">
+                {loading
+                  ? "Loading..."
+                  : `${locations.length.toLocaleString()} locations`}
+              </div>
+
             </div>
+
           </div>
 
           {error && (
@@ -215,7 +259,6 @@ function App() {
 
         </section>
 
-
         <aside className="sidebar">
 
           <div className="sidebar-card">
@@ -321,7 +364,6 @@ function App() {
 
           </div>
 
-
           <div className="sidebar-card coverage-card">
 
             <h2>Monitoring Coverage</h2>
@@ -335,7 +377,9 @@ function App() {
             </div>
 
             <p>
-              GSI historical landslide locations loaded
+              {selectedState === "All States"
+                ? "GSI historical landslide locations loaded"
+                : `Historical locations in ${selectedState}`}
             </p>
 
             <div className="legend">
