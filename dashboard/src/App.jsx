@@ -52,6 +52,22 @@ function MapBounds({ locations }) {
   return null;
 }
 
+
+function getRiskMarkerColor(location, selectedLocation, riskAnalysis) {
+  if (!selectedLocation || location.sl_no !== selectedLocation.sl_no) {
+    return "#2563eb";
+  }
+
+  const riskLevel = riskAnalysis?.prediction?.risk_level;
+
+  if (riskLevel === "Low") return "#16a34a";
+  if (riskLevel === "Medium") return "#eab308";
+  if (riskLevel === "High") return "#f97316";
+  if (riskLevel === "Critical") return "#dc2626";
+
+  return "#2563eb";
+}
+
 function App() {
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -239,10 +255,21 @@ function App() {
                   ]}
                   radius={5}
                   pathOptions={{
-                    fillColor: "#2563eb",
-                    color: "#1d4ed8",
-                    weight: 1,
-                    fillOpacity: 0.75
+                    fillColor: getRiskMarkerColor(
+                      location,
+                      selectedLocation,
+                      riskAnalysis
+                    ),
+                    color: getRiskMarkerColor(
+                      location,
+                      selectedLocation,
+                      riskAnalysis
+                    ),
+                    weight:
+                      selectedLocation?.sl_no === location.sl_no
+                        ? 3
+                        : 1,
+                    fillOpacity: 0.85
                   }}
                   eventHandlers={{
                     click: () => {
