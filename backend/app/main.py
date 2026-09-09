@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.app.routes.prediction import router as prediction_router
 from backend.app.routes.locations import router as locations_router
 from backend.app.routes.weather import router as weather_router
+from backend.app.routes.analyze import router as analyze_router
 
 
 app = FastAPI(
@@ -47,3 +48,4 @@ def health_check():
 app.include_router(prediction_router)
 app.include_router(locations_router)
 app.include_router(weather_router)
+app.include_router(analyze_router)

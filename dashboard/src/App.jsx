@@ -55,9 +55,12 @@ function MapBounds({ locations }) {
 function App() {
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [riskAnalysis, setRiskAnalysis] = useState(null);
   const [selectedState, setSelectedState] = useState("All States");
   const [loading, setLoading] = useState(true);
+  const [riskLoading, setRiskLoading] = useState(false);
   const [error, setError] = useState("");
+  const [riskError, setRiskError] = useState("");
 
   useEffect(() => {
     async function fetchLocations() {
@@ -65,6 +68,8 @@ function App() {
         setLoading(true);
         setError("");
         setSelectedLocation(null);
+        setRiskAnalysis(null);
+        setRiskError("");
 
         const stateQuery =
           selectedState === "All States"
@@ -95,6 +100,51 @@ function App() {
 
     fetchLocations();
   }, [selectedState]);
+
+  useEffect(() => {
+    if (!selectedLocation) {
+      setRiskAnalysis(null);
+      setRiskError("");
+      return;
+    }
+
+    async function fetchRiskAnalysis() {
+      try {
+        setRiskLoading(true);
+        setRiskError("");
+        setRiskAnalysis(null);
+
+        const response = await fetch(
+          `${API_URL}/risk/analyze-location?sl_no=${selectedLocation.sl_no}`
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => null);
+          throw new Error(
+            errorData?.detail || "Failed to calculate AI risk"
+          );
+        }
+
+        const data = await response.json();
+
+        setRiskAnalysis(data);
+      } catch (err) {
+        console.error(err);
+        setRiskError(
+          "Unable to calculate AI risk. Please check the FastAPI backend and weather service."
+        );
+      } finally {
+        setRiskLoading(false);
+      }
+    }
+
+    fetchRiskAnalysis();
+  }, [selectedLocation]);
+
+  const riskLevel =
+    riskAnalysis?.prediction?.risk_level || "";
+
+  const riskLevelClass = riskLevel.toLowerCase();
 
   return (
     <div className="dashboard">
@@ -277,7 +327,8 @@ function App() {
 
                 <p>
                   Click any blue marker on the map to view
-                  historical GSI landslide information.
+                  historical GSI landslide information and
+                  AI-based risk analysis.
                 </p>
 
               </div>
@@ -361,6 +412,181 @@ function App() {
               </div>
 
             )}
+
+          </div>
+
+          <div className="sidebar-card ai-card">
+
+            <div className="ai-card-header">
+
+              <div>
+                <h2>🤖 AI Risk Assessment</h2>
+                <p>
+                  Terrain + recent weather + XGBoost
+                </p>
+              </div>
+
+            </div>
+
+            {!selectedLocation ? (
+
+              <div className="ai-empty">
+                Select a map location to calculate
+                AI-based risk.
+              </div>
+
+            ) : riskLoading ? (
+
+              <div className="ai-loading">
+                <div className="loading-spinner"></div>
+                <strong>Analyzing location...</strong>
+                <p>
+                  Fetching recent weather and running
+                  the XGBoost model.
+                </p>
+              </div>
+
+            ) : riskError ? (
+
+              <div className="risk-error">
+                {riskError}
+              </div>
+
+            ) : riskAnalysis ? (
+
+              <div className="risk-analysis">
+
+                <div className={`risk-result ${riskLevelClass}`}>
+
+                  <span className="risk-label">
+                    Current Prototype Risk
+                  </span>
+
+                  <strong className="risk-level">
+                    {riskLevel}
+                  </strong>
+
+                  <div className="risk-score">
+                    {riskAnalysis.prediction.risk_score}
+                    <span>/100</span>
+                  </div>
+
+                  <span className="risk-probability">
+                    Probability:{" "}
+                    {(riskAnalysis.prediction.risk_probability * 100).toFixed(2)}%
+                  </span>
+
+                </div>
+
+                <div className="weather-section">
+
+                  <h3>🌧️ Recent Weather</h3>
+
+                  <div className="weather-grid">
+
+                    <div className="weather-card">
+                      <span>1 Day Rain</span>
+                      <strong>
+                        {riskAnalysis.weather.rainfall_1d} mm
+                      </strong>
+                    </div>
+
+                    <div className="weather-card">
+                      <span>3 Day Rain</span>
+                      <strong>
+                        {riskAnalysis.weather.rainfall_3d} mm
+                      </strong>
+                    </div>
+
+                    <div className="weather-card">
+                      <span>7 Day Rain</span>
+                      <strong>
+                        {riskAnalysis.weather.rainfall_7d} mm
+                      </strong>
+                    </div>
+
+                    <div className="weather-card">
+                      <span>30 Day Rain</span>
+                      <strong>
+                        {riskAnalysis.weather.rainfall_30d} mm
+                      </strong>
+                    </div>
+
+                    <div className="weather-card">
+                      <span>Temperature</span>
+                      <strong>
+                        {riskAnalysis.weather.temperature}°C
+                      </strong>
+                    </div>
+
+                    <div className="weather-card">
+                      <span>Humidity</span>
+                      <strong>
+                        {riskAnalysis.weather.humidity}%
+                      </strong>
+                    </div>
+
+                    <div className="weather-card">
+                      <span>Wind Speed</span>
+                      <strong>
+                        {riskAnalysis.weather.wind_speed} m/s
+                      </strong>
+                    </div>
+
+                    <div className="weather-card">
+                      <span>Latest Data</span>
+                      <strong>
+                        {riskAnalysis.weather.latest_date}
+                      </strong>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div className="model-features">
+
+                  <h3>⛰️ Model Inputs</h3>
+
+                  <div className="feature-row">
+                    <span>Elevation</span>
+                    <strong>
+                      {riskAnalysis.location.elevation.toFixed(2)} m
+                    </strong>
+                  </div>
+
+                  <div className="feature-row">
+                    <span>Slope</span>
+                    <strong>
+                      {riskAnalysis.location.slope.toFixed(2)}°
+                    </strong>
+                  </div>
+
+                  <div className="feature-row">
+                    <span>Weather Source</span>
+                    <strong>
+                      {riskAnalysis.weather.source}
+                    </strong>
+                  </div>
+
+                </div>
+
+                <div className="risk-disclaimer">
+
+                  <strong>⚠️ Prototype Notice</strong>
+
+                  <p>
+                    This is a prototype AI prediction based on
+                    historical GSI inventory, terrain features,
+                    and recent NASA POWER weather data.
+                    It is not an official disaster warning.
+                  </p>
+
+                </div>
+
+              </div>
+
+            ) : null}
 
           </div>
 
