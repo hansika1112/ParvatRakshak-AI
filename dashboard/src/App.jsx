@@ -52,7 +52,6 @@ function MapBounds({ locations }) {
   return null;
 }
 
-
 function getRiskMarkerColor(location, selectedLocation, riskAnalysis) {
   if (!selectedLocation || location.sl_no !== selectedLocation.sl_no) {
     return "#2563eb";
@@ -77,6 +76,20 @@ function App() {
   const [riskLoading, setRiskLoading] = useState(false);
   const [error, setError] = useState("");
   const [riskError, setRiskError] = useState("");
+
+  // Citizen report state
+  const [reportForm, setReportForm] = useState({
+    latitude: "",
+    longitude: "",
+    description: "",
+    severity: "Medium",
+    language: "English"
+  });
+
+  const [reportMedia, setReportMedia] = useState(null);
+  const [reportSubmitting, setReportSubmitting] = useState(false);
+  const [reportSuccess, setReportSuccess] = useState(null);
+  const [reportError, setReportError] = useState("");
 
   useEffect(() => {
     async function fetchLocations() {
@@ -157,6 +170,125 @@ function App() {
     fetchRiskAnalysis();
   }, [selectedLocation]);
 
+  function handleReportChange(event) {
+    const { name, value } = event.target;
+
+    setReportForm((previous) => ({
+      ...previous,
+      [name]: value
+    }));
+  }
+
+  function useCurrentLocation() {
+    setReportError("");
+    setReportSuccess(null);
+
+    if (!navigator.geolocation) {
+      setReportError(
+        "Geolocation is not supported by this browser."
+      );
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setReportForm((previous) => ({
+          ...previous,
+          latitude: position.coords.latitude.toFixed(6),
+          longitude: position.coords.longitude.toFixed(6)
+        }));
+      },
+      (error) => {
+        console.error(error);
+
+        setReportError(
+          "Unable to get your location. Please allow location access or enter coordinates manually."
+        );
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      }
+    );
+  }
+
+  async function handleReportSubmit(event) {
+    event.preventDefault();
+
+    setReportSubmitting(true);
+    setReportError("");
+    setReportSuccess(null);
+
+    try {
+      const latitude = Number(reportForm.latitude);
+      const longitude = Number(reportForm.longitude);
+
+      if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+        throw new Error(
+          "Please enter valid latitude and longitude."
+        );
+      }
+
+      const formData = new FormData();
+
+      formData.append("latitude", String(latitude));
+      formData.append("longitude", String(longitude));
+      formData.append(
+        "description",
+        reportForm.description.trim()
+      );
+      formData.append("severity", reportForm.severity);
+      formData.append("language", reportForm.language);
+
+      if (reportMedia) {
+        formData.append("media", reportMedia);
+      }
+
+      const response = await fetch(
+        `${API_URL}/reports`,
+        {
+          method: "POST",
+          body: formData
+        }
+      );
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(
+          data?.detail || "Failed to submit citizen report."
+        );
+      }
+
+      setReportSuccess(data.report);
+
+      setReportForm({
+        latitude: "",
+        longitude: "",
+        description: "",
+        severity: "Medium",
+        language: "English"
+      });
+
+      setReportMedia(null);
+
+      const fileInput =
+        document.getElementById("report-media");
+
+      if (fileInput) {
+        fileInput.value = "";
+      }
+    } catch (err) {
+      console.error(err);
+      setReportError(
+        err.message || "Unable to submit report."
+      );
+    } finally {
+      setReportSubmitting(false);
+    }
+  }
+
   const riskLevel =
     riskAnalysis?.prediction?.risk_level || "";
 
@@ -181,66 +313,67 @@ function App() {
 
       <main className="main-content">
 
+        <section className="kpi-section">
 
-          <section className="kpi-section">
-
-            <div className="kpi-card">
-              <span className="kpi-icon">📍</span>
-              <div>
-                <span className="kpi-label">GSI Locations</span>
-                <strong className="kpi-value">
-                  {loading ? "—" : locations.length.toLocaleString()}
-                </strong>
-                <span className="kpi-description">
-                  Historical Records
-                </span>
-              </div>
+          <div className="kpi-card">
+            <span className="kpi-icon">📍</span>
+            <div>
+              <span className="kpi-label">GSI Locations</span>
+              <strong className="kpi-value">
+                {loading ? "—" : locations.length.toLocaleString()}
+              </strong>
+              <span className="kpi-description">
+                Historical Records
+              </span>
             </div>
+          </div>
 
-            <div className="kpi-card">
-              <span className="kpi-icon">🤖</span>
-              <div>
-                <span className="kpi-label">AI Risk</span>
-                <strong className={`kpi-value risk-${riskLevelClass || "none"}`}>
-                  {riskAnalysis?.prediction?.risk_level || "—"}
-                </strong>
-                <span className="kpi-description">
-                  Current Prototype Risk
-                </span>
-              </div>
+          <div className="kpi-card">
+            <span className="kpi-icon">🤖</span>
+            <div>
+              <span className="kpi-label">AI Risk</span>
+              <strong
+                className={`kpi-value risk-${riskLevelClass || "none"}`}
+              >
+                {riskAnalysis?.prediction?.risk_level || "—"}
+              </strong>
+              <span className="kpi-description">
+                Current Prototype Risk
+              </span>
             </div>
+          </div>
 
-            <div className="kpi-card">
-              <span className="kpi-icon">🌧️</span>
-              <div>
-                <span className="kpi-label">7-Day Rainfall</span>
-                <strong className="kpi-value">
-                  {riskAnalysis?.weather?.rainfall_7d != null
-                    ? `${riskAnalysis.weather.rainfall_7d} mm`
-                    : "—"}
-                </strong>
-                <span className="kpi-description">
-                  Recent Weather
-                </span>
-              </div>
+          <div className="kpi-card">
+            <span className="kpi-icon">🌧️</span>
+            <div>
+              <span className="kpi-label">7-Day Rainfall</span>
+              <strong className="kpi-value">
+                {riskAnalysis?.weather?.rainfall_7d != null
+                  ? `${riskAnalysis.weather.rainfall_7d} mm`
+                  : "—"}
+              </strong>
+              <span className="kpi-description">
+                Recent Weather
+              </span>
             </div>
+          </div>
 
-            <div className="kpi-card">
-              <span className="kpi-icon">⛰️</span>
-              <div>
-                <span className="kpi-label">Slope</span>
-                <strong className="kpi-value">
-                  {selectedLocation
-                    ? `${selectedLocation.slope.toFixed(2)}°`
-                    : "—"}
-                </strong>
-                <span className="kpi-description">
-                  Selected Location
-                </span>
-              </div>
+          <div className="kpi-card">
+            <span className="kpi-icon">⛰️</span>
+            <div>
+              <span className="kpi-label">Slope</span>
+              <strong className="kpi-value">
+                {selectedLocation
+                  ? `${selectedLocation.slope.toFixed(2)}°`
+                  : "—"}
+              </strong>
+              <span className="kpi-description">
+                Selected Location
+              </span>
             </div>
+          </div>
 
-          </section>
+        </section>
 
         <section className="map-section">
 
@@ -675,6 +808,185 @@ function App() {
               </div>
 
             ) : null}
+
+          </div>
+
+          {/* Citizen Reporting */}
+
+          <div className="sidebar-card report-card">
+
+            <div className="report-card-header">
+              <div>
+                <h2>🚨 Report Landslide</h2>
+                <p>
+                  Help authorities by submitting a geo-tagged report.
+                </p>
+              </div>
+            </div>
+
+            <form
+              className="report-form"
+              onSubmit={handleReportSubmit}
+            >
+
+              <div className="report-location-row">
+
+                <div className="report-field">
+                  <label htmlFor="report-latitude">
+                    Latitude
+                  </label>
+
+                  <input
+                    id="report-latitude"
+                    name="latitude"
+                    type="number"
+                    step="any"
+                    placeholder="e.g. 26.198"
+                    value={reportForm.latitude}
+                    onChange={handleReportChange}
+                    required
+                  />
+                </div>
+
+                <div className="report-field">
+                  <label htmlFor="report-longitude">
+                    Longitude
+                  </label>
+
+                  <input
+                    id="report-longitude"
+                    name="longitude"
+                    type="number"
+                    step="any"
+                    placeholder="e.g. 90.298"
+                    value={reportForm.longitude}
+                    onChange={handleReportChange}
+                    required
+                  />
+                </div>
+
+              </div>
+
+              <button
+                type="button"
+                className="location-button"
+                onClick={useCurrentLocation}
+              >
+                📍 Use My Current Location
+              </button>
+
+              <div className="report-field">
+                <label htmlFor="report-description">
+                  Description
+                </label>
+
+                <textarea
+                  id="report-description"
+                  name="description"
+                  rows="4"
+                  placeholder="Describe the landslide, rainfall, road blockage, cracks, or other observations..."
+                  value={reportForm.description}
+                  onChange={handleReportChange}
+                  required
+                />
+              </div>
+
+              <div className="report-location-row">
+
+                <div className="report-field">
+                  <label htmlFor="report-severity">
+                    Severity
+                  </label>
+
+                  <select
+                    id="report-severity"
+                    name="severity"
+                    value={reportForm.severity}
+                    onChange={handleReportChange}
+                  >
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                    <option value="Critical">Critical</option>
+                  </select>
+                </div>
+
+                <div className="report-field">
+                  <label htmlFor="report-language">
+                    Language
+                  </label>
+
+                  <select
+                    id="report-language"
+                    name="language"
+                    value={reportForm.language}
+                    onChange={handleReportChange}
+                  >
+                    <option value="English">English</option>
+                    <option value="Hindi">Hindi</option>
+                    <option value="Assamese">Assamese</option>
+                  </select>
+                </div>
+
+              </div>
+
+              <div className="report-field">
+                <label htmlFor="report-media">
+                  Photo / Video
+                </label>
+
+                <input
+                  id="report-media"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,video/mp4,video/webm"
+                  onChange={(event) =>
+                    setReportMedia(
+                      event.target.files?.[0] || null
+                    )
+                  }
+                />
+
+                <small>
+                  JPG, PNG, WEBP, MP4 or WEBM • Maximum 20 MB
+                </small>
+              </div>
+
+              {reportError && (
+                <div className="report-message report-error">
+                  ❌ {reportError}
+                </div>
+              )}
+
+              {reportSuccess && (
+                <div className="report-message report-success">
+
+                  <strong>
+                    ✅ Report submitted successfully
+                  </strong>
+
+                  <p>
+                    Report ID:{" "}
+                    <strong>{reportSuccess.report_id}</strong>
+                  </p>
+
+                  <p>
+                    Your report has been received by the system.
+                  </p>
+
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="submit-report-button"
+                disabled={reportSubmitting}
+              >
+                {reportSubmitting
+                  ? "Submitting Report..."
+                  : "🚨 Submit Landslide Report"}
+              </button>
+
+            </form>
 
           </div>
 
