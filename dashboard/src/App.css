@@ -779,3 +779,92 @@ footer {
   }
 }
 
+
+/* Citizen Report Map Legend */
+
+.citizen-legend-item {
+  margin-top: 8px;
+}
+
+.citizen-legend-dot {
+  width: 11px;
+  height: 11px;
+  display: inline-block;
+  border-radius: 50%;
+  background: #dc2626;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px #dc2626;
+  margin-right: 7px;
+}
+
+
+/* ================================
+   Monitoring Coverage UI
+   ================================ */
+
+.coverage-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.coverage-stat {
+  padding: 14px 10px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.coverage-stat .coverage-number {
+  margin: 0;
+  font-size: 1.7rem;
+  line-height: 1.1;
+}
+
+.coverage-stat span {
+  display: block;
+  margin-top: 5px;
+  color: #64748b;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.citizen-stat {
+  background: #fff7f7;
+  border-color: #fecaca;
+}
+
+.citizen-stat .coverage-number {
+  color: #dc2626;
+}
+
+.coverage-description {
+  margin: 14px 0 !important;
+  line-height: 1.45;
+}
+
+.legend {
+  margin-top: 14px;
+}
+
+.legend-title {
+  margin-bottom: 10px;
+  color: #475569;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.citizen-legend-dot {
+  background: #dc2626;
+}
+
+@media (max-width: 700px) {
+  .coverage-stats {
+    grid-template-columns: 1fr;
+  }
+}
+

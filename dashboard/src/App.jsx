@@ -67,6 +67,15 @@ function getRiskMarkerColor(location, selectedLocation, riskAnalysis) {
   return "#2563eb";
 }
 
+function getCitizenReportColor(severity) {
+  if (severity === "Low") return "#16a34a";
+  if (severity === "Medium") return "#eab308";
+  if (severity === "High") return "#f97316";
+  if (severity === "Critical") return "#dc2626";
+
+  return "#64748b";
+}
+
 function App() {
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -88,8 +97,38 @@ function App() {
 
   const [reportMedia, setReportMedia] = useState(null);
   const [reportSubmitting, setReportSubmitting] = useState(false);
+
+  // Citizen reports loaded from the backend
+  const [citizenReports, setCitizenReports] = useState([]);
   const [reportSuccess, setReportSuccess] = useState(null);
   const [reportError, setReportError] = useState("");
+
+  useEffect(() => {
+    async function fetchCitizenReports() {
+      try {
+        const response = await fetch(`${API_URL}/reports`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch citizen reports");
+        }
+
+        const data = await response.json();
+
+        setCitizenReports(data.reports || []);
+      } catch (err) {
+        console.error("Citizen reports error:", err);
+      }
+    }
+
+    fetchCitizenReports();
+
+    const interval = setInterval(
+      fetchCitizenReports,
+      30000
+    );
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     async function fetchLocations() {
@@ -262,6 +301,13 @@ function App() {
       }
 
       setReportSuccess(data.report);
+
+      setCitizenReports((previous) => [
+        data.report,
+        ...previous.filter(
+          (report) => report.report_id !== data.report.report_id
+        )
+      ]);
 
       setReportForm({
         latitude: "",
@@ -523,6 +569,88 @@ function App() {
                 </CircleMarker>
 
               ))}
+
+              {citizenReports.map((report) => {
+                const latitude = Number(report.latitude);
+                const longitude = Number(report.longitude);
+
+                if (
+                  !Number.isFinite(latitude) ||
+                  !Number.isFinite(longitude)
+                ) {
+                  return null;
+                }
+
+                const markerColor =
+                  getCitizenReportColor(report.severity);
+
+                return (
+                  <CircleMarker
+                    key={`citizen-${report.report_id}`}
+                    center={[latitude, longitude]}
+                    radius={8}
+                    pathOptions={{
+                      fillColor: markerColor,
+                      color: "#ffffff",
+                      weight: 3,
+                      fillOpacity: 0.95
+                    }}
+                  >
+                    <Popup>
+                      <div>
+                        <strong>
+                          🚨 Citizen Landslide Report
+                        </strong>
+
+                        <br />
+                        <br />
+
+                        <strong>Report ID:</strong>{" "}
+                        {report.report_id}
+
+                        <br />
+
+                        <strong>Severity:</strong>{" "}
+                        {report.severity}
+
+                        <br />
+
+                        <strong>Language:</strong>{" "}
+                        {report.language}
+
+                        <br />
+
+                        <strong>Latitude:</strong>{" "}
+                        {latitude.toFixed(5)}
+
+                        <br />
+
+                        <strong>Longitude:</strong>{" "}
+                        {longitude.toFixed(5)}
+
+                        <br />
+                        <br />
+
+                        <strong>Description:</strong>
+
+                        <p style={{ margin: "5px 0" }}>
+                          {report.description}
+                        </p>
+
+                        <strong>Status:</strong>{" "}
+                        {report.status}
+
+                        <br />
+
+                        <strong>Reported:</strong>{" "}
+                        {new Date(
+                          report.created_at
+                        ).toLocaleString()}
+                      </div>
+                    </Popup>
+                  </CircleMarker>
+                );
+              })}
 
             </MapContainer>
 
@@ -994,21 +1122,47 @@ function App() {
 
             <h2>Monitoring Coverage</h2>
 
-            <div className="coverage-number">
+            <div className="coverage-stats">
 
-              {loading
-                ? "—"
-                : locations.length.toLocaleString()}
+              <div className="coverage-stat">
+
+                <div className="coverage-number">
+                  {loading
+                    ? "—"
+                    : locations.length.toLocaleString()}
+                </div>
+
+                <span>
+                  GSI Historical Locations
+                </span>
+
+              </div>
+
+              <div className="coverage-stat citizen-stat">
+
+                <div className="coverage-number">
+                  {citizenReports.length}
+                </div>
+
+                <span>
+                  Citizen Reports
+                </span>
+
+              </div>
 
             </div>
 
-            <p>
+            <p className="coverage-description">
               {selectedState === "All States"
-                ? "GSI historical landslide locations loaded"
+                ? "Historical GSI inventory + citizen-reported incidents"
                 : `Historical locations in ${selectedState}`}
             </p>
 
             <div className="legend">
+
+              <div className="legend-title">
+                Map Legend
+              </div>
 
               <div className="legend-item">
 
@@ -1016,6 +1170,38 @@ function App() {
 
                 Historical Landslide
 
+              </div>
+
+              <div className="legend-item citizen-legend-item">
+                <span
+                  className="citizen-legend-dot"
+                  style={{ background: "#16a34a" }}
+                ></span>
+                Citizen Report — Low
+              </div>
+
+              <div className="legend-item">
+                <span
+                  className="citizen-legend-dot"
+                  style={{ background: "#eab308" }}
+                ></span>
+                Citizen Report — Medium
+              </div>
+
+              <div className="legend-item">
+                <span
+                  className="citizen-legend-dot"
+                  style={{ background: "#f97316" }}
+                ></span>
+                Citizen Report — High
+              </div>
+
+              <div className="legend-item">
+                <span
+                  className="citizen-legend-dot"
+                  style={{ background: "#dc2626" }}
+                ></span>
+                Citizen Report — Critical
               </div>
 
             </div>
