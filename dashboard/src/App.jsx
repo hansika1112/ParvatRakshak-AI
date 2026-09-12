@@ -1608,6 +1608,108 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
 
               <MapBounds locations={locations} />
 
+              {riskAlerts.map((alert) => (
+                <CircleMarker
+                  key={`risk-alert-${alert.sl_no}`}
+                  center={[
+                    alert.latitude,
+                    alert.longitude
+                  ]}
+                  radius={
+                    alert.risk_level === "Critical"
+                      ? 10
+                      : 8
+                  }
+                  pathOptions={{
+                    fillColor:
+                      alert.risk_level === "Critical"
+                        ? "#dc2626"
+                        : "#f97316",
+                    color:
+                      alert.risk_level === "Critical"
+                        ? "#991b1b"
+                        : "#c2410c",
+                    weight: 3,
+                    fillOpacity: 0.9
+                  }}
+                  eventHandlers={{
+                    click: () => {
+                      const location = locations.find(
+                        (item) =>
+                          Number(item.sl_no) ===
+                          Number(alert.sl_no)
+                      );
+
+                      if (location) {
+                        setSelectedLocation(location);
+                      }
+                    }
+                  }}
+                >
+
+                  <Popup>
+
+                    <div>
+
+                      <strong>
+                        {alert.risk_level === "Critical"
+                          ? "🔴"
+                          : "🟠"}{" "}
+                        {alert.risk_level} Risk Alert
+                      </strong>
+
+                      <br />
+                      <br />
+
+                      <strong>Risk Score:</strong>{" "}
+                      {alert.risk_score.toFixed(2)}%
+
+                      <br />
+
+                      <strong>GSI ID:</strong>{" "}
+                      {alert.sl_no}
+
+                      <br />
+
+                      <strong>Slope:</strong>{" "}
+                      {alert.slope.toFixed(2)}°
+
+                      <br />
+
+                      <strong>Elevation:</strong>{" "}
+                      {alert.elevation.toFixed(2)} m
+
+                      <br />
+
+                      <strong>30-Day Rainfall:</strong>{" "}
+                      {alert.weather?.rainfall_30d ?? "—"} mm
+
+                      <br />
+
+                      <strong>Temperature:</strong>{" "}
+                      {alert.weather?.temperature ?? "—"}°C
+
+                      <br />
+
+                      <strong>Humidity:</strong>{" "}
+                      {alert.weather?.humidity ?? "—"}%
+
+                      <br />
+
+                      <br />
+
+                      <span>
+                        🌦️ NASA POWER weather-aware
+                        prototype screening
+                      </span>
+
+                    </div>
+
+                  </Popup>
+
+                </CircleMarker>
+              ))}
+
               {locations.map((location) => (
 
                 <CircleMarker
