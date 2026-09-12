@@ -59,64 +59,69 @@ body {
   width: min(1450px, 94%);
   margin: 25px auto;
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(320px, 0.85fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
   align-items: start;
 }
 
 .map-section {
+  grid-column: 1 / -1;
+  grid-row: 3;
   min-width: 0;
 }
 
-.section-header {
-  background: white;
-  padding: 18px 22px;
-  border-radius: 14px 14px 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.section-header h2 {
-  margin: 0 0 5px;
-  font-size: 21px;
-}
-
-.section-header p {
-  margin: 0;
-  color: #64748b;
-}
-
-.location-count {
-  background: #e8f0ff;
-  color: #1d4ed8;
-  padding: 8px 13px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.map-card {
-  background: white;
-  padding: 0;
-  border-radius: 0 0 14px 14px;
-  overflow: hidden;
-  box-shadow: 0 5px 20px rgba(15, 23, 42, 0.08);
-}
-
-.map-card .leaflet-container {
-  height: 650px !important;
-  width: 100% !important;
-}
-
-/* Sidebar */
 .sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
+  display: contents;
+}
+
+.sidebar-card {
+  min-width: 0;
+}
+
+.sidebar-card:first-child {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.sidebar-card.ai-card {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.sidebar-card.report-card {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.sidebar-card.emergency-card {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.sidebar-card.coverage-card {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.sidebar-card {
+  min-width: 0;
+}
+
+.sidebar-card.ai-card {
+  grid-column: 2;
+  grid-row: span 2;
+}
+
+.sidebar-card.report-card {
+  grid-column: 1;
+}
+
+.sidebar-card.emergency-card {
+  grid-column: 1;
+}
+
+.sidebar-card.coverage-card {
+  grid-column: 1;
 }
 
 .sidebar-card {
@@ -1069,3 +1074,5824 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================================
+   PARVATRASHAK AI — REFERENCE DASHBOARD LAYOUT
+   ========================================================= */
+
+/* Main page container */
+.main-content {
+  width: min(1400px, 94%) !important;
+  margin: 0 auto !important;
+  padding: 22px 0 35px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+  align-items: stretch !important;
+}
+
+/* =========================================================
+   KPI SECTION
+   ========================================================= */
+
+.kpi-section {
+  width: 100% !important;
+  margin: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 16px !important;
+}
+
+.kpi-card {
+  min-width: 0 !important;
+  min-height: 118px;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   THREE COLUMN DASHBOARD CARDS
+   ========================================================= */
+
+.sidebar {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1.35fr)
+    minmax(0, 1fr) !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+}
+
+/* Each column contains stacked cards */
+.sidebar-column {
+  min-width: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+}
+
+/* Every card stays inside its column */
+.sidebar-column .sidebar-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+}
+
+/* =========================================================
+   CENTER AI CARD — TALL
+   ========================================================= */
+
+.sidebar-column:nth-child(2) {
+  align-self: stretch !important;
+}
+
+.sidebar-column:nth-child(2) .ai-card {
+  height: 100% !important;
+  min-height: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Center AI content */
+.ai-card {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.ai-card-header {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   EMERGENCY CARD
+   ========================================================= */
+
+.emergency-card {
+  border: 1px solid #fecaca !important;
+  background: #fffafa !important;
+}
+
+.emergency-card-header {
+  margin-bottom: 8px;
+}
+
+/* =========================================================
+   REPORT CARD
+   ========================================================= */
+
+.report-card {
+  border-top: 4px solid #ef4444 !important;
+}
+
+/* Keep report form usable */
+.report-card form {
+  width: 100%;
+}
+
+/* =========================================================
+   HISTORICAL DETAILS
+   ========================================================= */
+
+.sidebar-column .sidebar-card:first-child {
+  min-height: 0;
+}
+
+/* =========================================================
+   MONITORING COVERAGE
+   ========================================================= */
+
+.coverage-card {
+  min-height: 0 !important;
+}
+
+/* =========================================================
+   MAP SECTION — FULL WIDTH
+   ========================================================= */
+
+.map-section {
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.map-section .section-header {
+  margin-bottom: 10px !important;
+}
+
+.map-card {
+  width: 100% !important;
+  overflow: hidden !important;
+  border-radius: 12px !important;
+}
+
+.map-card .leaflet-container {
+  width: 100% !important;
+  height: 560px !important;
+}
+
+/* =========================================================
+   CARD VISUAL POLISH
+   ========================================================= */
+
+.sidebar-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  padding: 18px !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.07) !important;
+}
+
+.sidebar-card h2 {
+  margin-top: 0;
+}
+
+.empty-state {
+  padding: 22px 10px !important;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+  .kpi-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .sidebar {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .sidebar-column:nth-child(2) {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .sidebar-column:nth-child(1) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .sidebar-column:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .sidebar-column:nth-child(2) .ai-card {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .map-card .leaflet-container {
+    height: 520px !important;
+  }
+}
+
+@media (max-width: 700px) {
+
+  .main-content {
+    width: 94% !important;
+    padding-top: 16px !important;
+  }
+
+  .kpi-section {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sidebar {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .sidebar-column,
+  .sidebar-column:nth-child(1),
+  .sidebar-column:nth-child(2),
+  .sidebar-column:nth-child(3) {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .sidebar-column:nth-child(2) .ai-card {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .map-card .leaflet-container {
+    height: 430px !important;
+  }
+}
+
+
+/* =========================================================
+   FINAL REFERENCE LAYOUT
+   ========================================================= */
+
+/* ---------- MAIN ---------- */
+
+.main-content {
+  width: min(1400px, 94%) !important;
+  margin: 0 auto !important;
+  padding: 20px 0 30px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+
+  align-items: stretch !important;
+}
+
+
+/* =========================================================
+   THREE COLUMN CARD AREA
+   ========================================================= */
+
+.sidebar {
+  width: 100% !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1.35fr)
+    minmax(0, 1fr) !important;
+
+  gap: 18px !important;
+
+  align-items: start !important;
+}
+
+.dashboard-column {
+  min-width: 0 !important;
+  width: 100% !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  gap: 18px !important;
+
+  align-items: stretch !important;
+}
+
+
+/* ---------- RESET OLD CARD GRID RULES ---------- */
+
+.dashboard-column .sidebar-card,
+.dashboard-column .sidebar-card:first-child,
+.dashboard-column .sidebar-card.ai-card,
+.dashboard-column .sidebar-card.report-card,
+.dashboard-column .sidebar-card.emergency-card,
+.dashboard-column .sidebar-card.coverage-card {
+  grid-column: auto !important;
+  grid-row: auto !important;
+
+  width: 100% !important;
+  min-width: 0 !important;
+
+  height: auto !important;
+  min-height: 0 !important;
+
+  margin: 0 !important;
+
+  box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   AI CARD
+   ========================================================= */
+
+.center-column .ai-card {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  overflow: visible !important;
+}
+
+
+/* =========================================================
+   EMERGENCY
+   ========================================================= */
+
+.left-column .emergency-card {
+  height: auto !important;
+}
+
+
+/* =========================================================
+   REPORT
+   ========================================================= */
+
+.left-column .report-card {
+  height: auto !important;
+}
+
+
+/* =========================================================
+   HISTORICAL
+   ========================================================= */
+
+.right-column .sidebar-card:first-child {
+  height: auto !important;
+}
+
+
+/* =========================================================
+   COVERAGE
+   ========================================================= */
+
+.right-column .coverage-card {
+  height: auto !important;
+}
+
+
+/* =========================================================
+   MAP — FULL WIDTH
+   ========================================================= */
+
+.map-section {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  order: 2 !important;
+}
+
+.map-card {
+  width: 100% !important;
+
+  margin: 0 !important;
+
+  overflow: hidden !important;
+
+  border-radius: 12px !important;
+}
+
+.map-card .leaflet-container {
+  width: 100% !important;
+  height: 560px !important;
+}
+
+
+/* =========================================================
+   KPI CARDS — BELOW MAP
+   ========================================================= */
+
+.kpi-section {
+  width: 100% !important;
+
+  order: 3 !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr)) !important;
+
+  gap: 16px !important;
+
+  margin: 0 !important;
+}
+
+.kpi-card {
+  width: 100% !important;
+  min-width: 0 !important;
+
+  min-height: 118px !important;
+
+  box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+  width: min(1400px, 94%) !important;
+  margin: 0 auto !important;
+}
+
+
+/* =========================================================
+   CARD DESIGN
+   ========================================================= */
+
+.sidebar-card {
+  background: #ffffff !important;
+
+  border-radius: 12px !important;
+
+  border: 1px solid #e2e8f0 !important;
+
+  box-shadow:
+    0 4px 14px rgba(15, 23, 42, 0.07) !important;
+
+  box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 1101px) {
+
+  .sidebar {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1.35fr)
+      minmax(0, 1fr) !important;
+  }
+
+  .map-card .leaflet-container {
+    height: 560px !important;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .sidebar {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .center-column {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .left-column {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .right-column {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .kpi-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .map-card .leaflet-container {
+    height: 500px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .main-content {
+    width: 94% !important;
+    padding: 14px 0 24px !important;
+    gap: 16px !important;
+  }
+
+  .sidebar {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .dashboard-column,
+  .left-column,
+  .center-column,
+  .right-column {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 16px !important;
+
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  .sidebar-card,
+  .sidebar-card:first-child,
+  .sidebar-card.ai-card,
+  .sidebar-card.report-card,
+  .sidebar-card.emergency-card,
+  .sidebar-card.coverage-card {
+    width: 100% !important;
+
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    grid-column: auto !important;
+    grid-row: auto !important;
+
+    overflow: visible !important;
+  }
+
+  .kpi-section {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .map-card .leaflet-container {
+    height: 430px !important;
+  }
+}
+
+
+/* ==========================================================
+   PARVATRAKSHAK AI — EXACT REFERENCE DASHBOARD
+   ========================================================== */
+
+.main-content {
+  width: min(1000px, 94%) !important;
+  margin: 0 auto !important;
+  padding: 14px 0 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+  align-items: stretch !important;
+}
+
+/* ==========================================================
+   KPI — TOP
+   ========================================================== */
+
+.kpi-section {
+  order: 1 !important;
+  width: 100% !important;
+
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+
+  gap: 12px !important;
+  margin: 0 !important;
+}
+
+.kpi-card {
+  min-width: 0 !important;
+  min-height: 88px !important;
+  padding: 14px !important;
+  box-sizing: border-box !important;
+}
+
+
+/* ==========================================================
+   THREE COLUMN AREA
+   ========================================================== */
+
+.sidebar {
+  order: 2 !important;
+
+  width: 100% !important;
+
+  display: grid !important;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1.35fr)
+    minmax(0, 1fr) !important;
+
+  gap: 12px !important;
+
+  align-items: stretch !important;
+}
+
+
+/* Real columns */
+.dashboard-column {
+  width: 100% !important;
+  min-width: 0 !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  gap: 12px !important;
+
+  align-items: stretch !important;
+}
+
+
+/* ==========================================================
+   ALL CARDS
+   ========================================================== */
+
+.dashboard-column .sidebar-card,
+.dashboard-column .sidebar-card:first-child,
+.dashboard-column .sidebar-card.ai-card,
+.dashboard-column .sidebar-card.report-card,
+.dashboard-column .sidebar-card.emergency-card,
+.dashboard-column .sidebar-card.coverage-card {
+
+  width: 100% !important;
+  min-width: 0 !important;
+
+  margin: 0 !important;
+
+  box-sizing: border-box !important;
+
+  height: auto !important;
+  min-height: 0 !important;
+
+  grid-column: auto !important;
+  grid-row: auto !important;
+}
+
+
+/* ==========================================================
+   CENTER AI CARD
+   ========================================================== */
+
+.center-column {
+  align-self: stretch !important;
+}
+
+.center-column .ai-card {
+  height: 100% !important;
+  min-height: 100% !important;
+
+  box-sizing: border-box !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+
+/* ==========================================================
+   LEFT + RIGHT STACKS
+   ========================================================== */
+
+.left-column,
+.right-column {
+  height: 100% !important;
+}
+
+.left-column .emergency-card,
+.left-column .report-card,
+.right-column .sidebar-card:first-child,
+.right-column .coverage-card {
+  flex-shrink: 0 !important;
+}
+
+
+/* ==========================================================
+   CARD STYLE — REFERENCE
+   ========================================================== */
+
+.sidebar-card {
+  background: #ffffff !important;
+
+  border: 1px solid #e2e8f0 !important;
+
+  border-radius: 10px !important;
+
+  padding: 14px !important;
+
+  box-shadow:
+    0 3px 10px rgba(15, 23, 42, 0.06) !important;
+}
+
+
+/* ==========================================================
+   EMERGENCY
+   ========================================================== */
+
+.emergency-card {
+  border-color: #fecaca !important;
+  background: #fffafa !important;
+}
+
+
+/* ==========================================================
+   REPORT
+   ========================================================== */
+
+.report-card {
+  border-top: 3px solid #ef4444 !important;
+}
+
+
+/* ==========================================================
+   AI EMPTY STATE
+   ========================================================== */
+
+.ai-empty {
+  margin-top: 12px !important;
+  padding: 18px !important;
+
+  border-radius: 8px !important;
+
+  background: #f8fafc !important;
+
+  text-align: center !important;
+
+  line-height: 1.45 !important;
+}
+
+
+/* ==========================================================
+   HISTORICAL
+   ========================================================== */
+
+.right-column .sidebar-card:first-child {
+  min-height: 0 !important;
+}
+
+
+/* ==========================================================
+   COVERAGE
+   ========================================================== */
+
+.coverage-card {
+  min-height: 0 !important;
+}
+
+
+/* ==========================================================
+   MAP — FULL WIDTH BELOW CARDS
+   ========================================================== */
+
+.map-section {
+  order: 3 !important;
+
+  width: 100% !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.map-section .section-header {
+  margin-bottom: 8px !important;
+}
+
+.map-card {
+  width: 100% !important;
+
+  margin: 0 !important;
+
+  border-radius: 10px !important;
+
+  overflow: hidden !important;
+}
+
+.map-card .leaflet-container {
+  width: 100% !important;
+  height: 430px !important;
+}
+
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+
+.footer {
+  order: 4 !important;
+}
+
+
+/* ==========================================================
+   DESKTOP — TARGET SIZE
+   ========================================================== */
+
+@media (min-width: 1001px) {
+
+  .main-content {
+    width: min(1000px, 94%) !important;
+  }
+
+  .kpi-section {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  .sidebar {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1.35fr)
+      minmax(0, 1fr) !important;
+  }
+
+  .map-card .leaflet-container {
+    height: 430px !important;
+  }
+}
+
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width: 1000px) {
+
+  .main-content {
+    width: 94% !important;
+  }
+
+  .kpi-section {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .sidebar {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .center-column {
+    grid-column: 1 / -1 !important;
+  }
+
+  .left-column {
+    grid-column: 1 !important;
+  }
+
+  .right-column {
+    grid-column: 2 !important;
+  }
+
+  .center-column .ai-card {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .map-card .leaflet-container {
+    height: 450px !important;
+  }
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 650px) {
+
+  .main-content {
+    width: 94% !important;
+    padding-top: 12px !important;
+  }
+
+  .kpi-section {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sidebar {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .dashboard-column,
+  .left-column,
+  .center-column,
+  .right-column {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 12px !important;
+
+    grid-column: auto !important;
+  }
+
+  .center-column .ai-card {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .map-card .leaflet-container {
+    height: 380px !important;
+  }
+}
+
+
+/* =========================================================
+   PARVATRakshak AI
+   FINAL REFERENCE LAYOUT
+   ========================================================= */
+
+.main-content {
+  width: min(1450px, 94%);
+  margin: 14px auto 28px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+/* =========================================================
+   KPI ROW
+   ========================================================= */
+
+.kpi-section {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+
+  margin: 0;
+}
+
+.kpi-section .kpi-card {
+  width: 100%;
+  min-width: 0;
+  min-height: 108px;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   THREE MAIN COLUMNS
+   Reference: 30% / 40% / 30%
+   ========================================================= */
+
+.sidebar {
+  width: 100%;
+
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(0, 30fr)
+    minmax(0, 40fr)
+    minmax(0, 30fr) !important;
+
+  gap: 16px !important;
+
+  align-items: stretch !important;
+
+  margin: 0;
+}
+
+/* =========================================================
+   COLUMN BASE
+   ========================================================= */
+
+.left-column,
+.center-column,
+.right-column {
+  width: 100%;
+  min-width: 0;
+
+  height: auto !important;
+  min-height: 0 !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  gap: 12px !important;
+
+  box-sizing: border-box;
+}
+
+/* positions */
+.left-column {
+  grid-column: 1 !important;
+}
+
+.center-column {
+  grid-column: 2 !important;
+}
+
+.right-column {
+  grid-column: 3 !important;
+}
+
+/* =========================================================
+   ALL CARDS
+   ========================================================= */
+
+.left-column .sidebar-card,
+.center-column .sidebar-card,
+.right-column .sidebar-card {
+  width: 100% !important;
+  min-width: 0 !important;
+
+  box-sizing: border-box;
+
+  margin: 0 !important;
+}
+
+/* =========================================================
+   LEFT COLUMN
+   ========================================================= */
+
+.left-column .emergency-card {
+  flex: 0 0 auto;
+}
+
+.left-column .report-card {
+  flex: 1 1 auto;
+}
+
+/* =========================================================
+   RIGHT COLUMN
+   ========================================================= */
+
+.right-column .sidebar-card:first-child {
+  flex: 0 0 auto;
+}
+
+.right-column .coverage-card {
+  flex: 1 1 auto;
+}
+
+/* =========================================================
+   CENTER AI CARD
+   ========================================================= */
+
+.center-column .ai-card {
+  width: 100% !important;
+
+  height: 100% !important;
+
+  min-height: 0 !important;
+
+  box-sizing: border-box;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  padding: 18px !important;
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   AI HEADER
+   ========================================================= */
+
+.center-column .ai-card-header {
+  width: 100%;
+
+  display: flex !important;
+  flex-direction: row !important;
+
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+
+  gap: 12px;
+
+  margin: 0 0 10px !important;
+
+  flex: 0 0 auto;
+}
+
+.center-column .ai-card-header > div:first-child {
+  flex: 1 1 auto;
+
+  min-width: 0;
+}
+
+.center-column .ai-card-header h2 {
+  margin: 0;
+
+  font-size: 1.12rem;
+  line-height: 1.25;
+
+  white-space: nowrap;
+}
+
+.center-column .ai-card-header p {
+  margin: 5px 0 0;
+
+  font-size: .78rem;
+  line-height: 1.35;
+}
+
+/* =========================================================
+   MODEL BADGE
+   ========================================================= */
+
+.center-column .ai-model-badge {
+  flex: 0 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 3px;
+
+  text-align: right;
+}
+
+.center-column .ai-model-badge strong {
+  display: inline-block;
+
+  padding: 5px 8px;
+
+  border-radius: 7px;
+
+  background: #ecfdf5;
+  color: #047857;
+
+  font-size: .69rem;
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+.center-column .ai-model-badge span {
+  color: #64748b;
+
+  font-size: .67rem;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   AI CONTENT
+   ========================================================= */
+
+.center-column .ai-empty {
+  width: 100%;
+
+  flex: 1 1 auto;
+
+  min-height: 0;
+
+  display: block !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+.center-column .ai-preview {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   AI INTRO
+   ========================================================= */
+
+.center-column .ai-preview-intro {
+  width: 100%;
+
+  min-height: 112px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 14px 18px;
+
+  border-radius: 10px;
+
+  background: #f8fbff;
+  border: 1px solid #dbeafe;
+
+  text-align: center;
+}
+
+.center-column .ai-preview-icon {
+  font-size: 1.9rem;
+  line-height: 1;
+
+  margin-bottom: 6px;
+}
+
+.center-column .ai-preview-intro strong {
+  display: block;
+
+  color: #172554;
+
+  font-size: .98rem;
+  font-weight: 800;
+
+  margin-bottom: 5px;
+}
+
+.center-column .ai-preview-intro p {
+  margin: 0;
+
+  max-width: 600px;
+
+  color: #64748b;
+
+  font-size: .76rem;
+  line-height: 1.4;
+}
+
+/* =========================================================
+   AI FEATURE CARDS
+   ========================================================= */
+
+.center-column .ai-preview-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 9px;
+}
+
+.center-column .ai-preview-item {
+  width: 100%;
+
+  min-width: 0;
+  min-height: 78px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 10px;
+
+  border-radius: 9px;
+
+  background: #f8fbff;
+  border: 1px solid #dbeafe;
+
+  text-align: center;
+
+  overflow: hidden;
+}
+
+.center-column .ai-preview-item span {
+  display: block;
+
+  color: #64748b;
+
+  font-size: .65rem;
+  font-weight: 800;
+
+  margin-bottom: 5px;
+}
+
+.center-column .ai-preview-item strong {
+  display: block;
+
+  color: #1e293b;
+
+  font-size: .8rem;
+  line-height: 1.3;
+}
+
+/* =========================================================
+   READY BOX
+   ========================================================= */
+
+.center-column .ai-preview-action {
+  width: 100%;
+
+  min-height: 74px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 11px 18px;
+
+  border-radius: 9px;
+
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+
+  color: #1d4ed8;
+
+  text-align: center;
+
+  font-size: .74rem;
+  line-height: 1.4;
+}
+
+.center-column .ai-preview-action strong {
+  display: block;
+
+  font-size: .83rem;
+
+  margin-bottom: 4px;
+}
+
+/* =========================================================
+   SELECTED AI RESULT
+   ========================================================= */
+
+.center-column .risk-analysis {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  box-sizing: border-box;
+}
+
+.center-column .weather-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 8px;
+}
+
+.center-column .weather-card {
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  padding: 8px 5px;
+}
+
+/* =========================================================
+   MAP
+   ========================================================= */
+
+.map-section {
+  width: 100%;
+
+  margin: 0;
+}
+
+.map-card {
+  width: 100%;
+
+  box-sizing: border-box;
+}
+
+.map-card .leaflet-container {
+  width: 100% !important;
+  height: 650px !important;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .kpi-section {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .sidebar {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 12px !important;
+  }
+
+  .center-column .ai-card {
+    height: 100% !important;
+  }
+
+  .center-column .weather-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .main-content {
+    width: 94%;
+
+    margin: 14px auto 22px;
+
+    gap: 14px;
+  }
+
+  .kpi-section {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    grid-template-columns: 1fr !important;
+
+    gap: 14px !important;
+  }
+
+  .left-column,
+  .center-column,
+  .right-column {
+    grid-column: 1 !important;
+
+    width: 100% !important;
+
+    height: auto !important;
+  }
+
+  .center-column .ai-card {
+    height: auto !important;
+  }
+
+  .center-column .ai-card-header {
+    flex-direction: column !important;
+  }
+
+  .center-column .ai-card-header h2 {
+    white-space: normal;
+  }
+
+  .center-column .ai-model-badge {
+    align-items: flex-start;
+
+    text-align: left;
+  }
+
+  .center-column .ai-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .center-column .weather-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .map-card .leaflet-container {
+    height: 450px !important;
+  }
+
+}
+
+
+/* =========================================================
+   FINAL MIDDLE AI RISK ASSESSMENT CARD
+   REFERENCE IMAGE MATCH
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   CENTER CARD
+   --------------------------------------------------------- */
+
+.center-column .ai-card {
+  width: 100% !important;
+  height: 100% !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+
+  box-sizing: border-box;
+
+  padding: 18px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  overflow: hidden !important;
+}
+
+/* ---------------------------------------------------------
+   AI HEADER
+   --------------------------------------------------------- */
+
+.center-column .ai-card-header {
+  width: 100% !important;
+
+  display: flex !important;
+  flex-direction: row !important;
+
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+
+  gap: 12px;
+
+  margin: 0 0 12px !important;
+
+  flex-shrink: 0;
+}
+
+.center-column .ai-card-header > div:first-child {
+  min-width: 0;
+
+  flex: 1 1 auto;
+}
+
+.center-column .ai-card-header h2 {
+  margin: 0 !important;
+
+  color: #172554;
+
+  font-size: 1.15rem !important;
+  line-height: 1.25 !important;
+
+  white-space: nowrap;
+}
+
+.center-column .ai-card-header p {
+  margin: 5px 0 0 !important;
+
+  color: #64748b;
+
+  font-size: .78rem !important;
+  line-height: 1.35;
+}
+
+/* ---------------------------------------------------------
+   MODEL BADGE
+   --------------------------------------------------------- */
+
+.center-column .ai-model-badge {
+  flex: 0 0 auto;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  align-items: flex-end !important;
+
+  gap: 3px;
+
+  text-align: right;
+}
+
+.center-column .ai-model-badge strong {
+  display: inline-block;
+
+  padding: 6px 10px;
+
+  border-radius: 7px;
+
+  background: #ecfdf5;
+
+  color: #047857;
+
+  font-size: .7rem;
+
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+.center-column .ai-model-badge span {
+  color: #64748b;
+
+  font-size: .68rem;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   SELECTED LOCATION AI RESULT
+   ========================================================= */
+
+.center-column .risk-analysis {
+  width: 100% !important;
+
+  height: auto !important;
+
+  min-width: 0 !important;
+
+  box-sizing: border-box;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 12px !important;
+
+  overflow: visible !important;
+}
+
+/* =========================================================
+   RISK + WARNING ROW
+   ========================================================= */
+
+.center-column .risk-analysis {
+  --ai-gap: 10px;
+}
+
+/* Risk result */
+.center-column .risk-analysis > .risk-result {
+  width: 40%;
+
+  min-width: 0;
+
+  box-sizing: border-box;
+}
+
+/* Alert */
+.center-column .risk-analysis > .alert-panel {
+  width: calc(60% - var(--ai-gap));
+
+  min-width: 0;
+
+  box-sizing: border-box;
+}
+
+/*
+   Put Risk + Alert side by side.
+   This is done by making their parent visually row-based
+   without changing JSX.
+*/
+.center-column .risk-analysis {
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(0, 40fr)
+    minmax(0, 60fr);
+
+  column-gap: var(--ai-gap);
+
+  align-items: stretch;
+}
+
+/* ---------------------------------------------------------
+   RISK RESULT CARD
+   --------------------------------------------------------- */
+
+.center-column .risk-result {
+  width: 100% !important;
+
+  min-height: 188px;
+
+  padding: 14px 12px !important;
+
+  box-sizing: border-box;
+
+  border-radius: 9px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+}
+
+.center-column .risk-result .risk-label {
+  font-size: .72rem;
+
+  margin-bottom: 4px;
+}
+
+.center-column .risk-result .risk-level {
+  font-size: 1.65rem;
+
+  line-height: 1.1;
+
+  margin-bottom: 7px;
+}
+
+.center-column .risk-result .risk-score {
+  font-size: 1.8rem;
+
+  font-weight: 800;
+
+  line-height: 1;
+
+  margin: 3px 0 7px;
+}
+
+.center-column .risk-result .risk-score span {
+  font-size: .68rem;
+
+  font-weight: 600;
+}
+
+.center-column .risk-result .risk-probability {
+  font-size: .7rem;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   EARLY WARNING CARD
+   ========================================================= */
+
+.center-column .risk-analysis > .alert-panel {
+  width: 100% !important;
+
+  min-height: 188px;
+
+  margin: 0 !important;
+
+  padding: 13px !important;
+
+  box-sizing: border-box;
+
+  border-radius: 9px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+}
+
+.center-column .alert-header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 8px;
+}
+
+.center-column .alert-header h3 {
+  margin: 3px 0 0;
+
+  font-size: .82rem;
+
+  line-height: 1.3;
+}
+
+.center-column .alert-label {
+  font-size: .7rem;
+
+  font-weight: 800;
+}
+
+.center-column .alert-language-select {
+  flex: 0 0 auto;
+
+  min-width: 86px;
+
+  padding: 6px 7px;
+
+  border-radius: 7px;
+
+  font-size: .7rem;
+}
+
+.center-column .alert-message {
+  margin: 8px 0;
+
+  color: #475569;
+
+  font-size: .73rem;
+
+  line-height: 1.45;
+}
+
+.center-column .alert-meta {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 8px;
+
+  flex-wrap: wrap;
+
+  font-size: .65rem;
+
+  color: #64748b;
+}
+
+/* =========================================================
+   WEATHER SECTION
+   ========================================================= */
+
+.center-column .weather-section {
+  grid-column: 1 / -1;
+
+  width: 100%;
+
+  margin: 0 !important;
+}
+
+.center-column .weather-section h3 {
+  margin: 0 0 7px !important;
+
+  color: #1e293b;
+
+  font-size: .84rem !important;
+
+  line-height: 1.25;
+}
+
+.center-column .weather-grid {
+  width: 100%;
+
+  display: grid !important;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr)) !important;
+
+  gap: 7px !important;
+}
+
+.center-column .weather-card {
+  width: 100%;
+
+  min-width: 0;
+
+  min-height: 55px;
+
+  box-sizing: border-box;
+
+  padding: 8px 5px !important;
+
+  border-radius: 7px;
+}
+
+.center-column .weather-card span {
+  display: block;
+
+  font-size: .63rem;
+
+  line-height: 1.2;
+}
+
+.center-column .weather-card strong {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: .76rem;
+
+  line-height: 1.2;
+}
+
+/* =========================================================
+   TERRAIN + MODEL INPUTS
+   ========================================================= */
+
+.center-column .model-features {
+  grid-column: 1 / -1;
+
+  width: 100%;
+
+  margin: 0 !important;
+}
+
+.center-column .model-features h3 {
+  margin: 0 0 7px !important;
+
+  color: #1e293b;
+
+  font-size: .84rem !important;
+}
+
+/*
+   Convert existing feature rows into
+   four equal reference-style boxes.
+*/
+.center-column .model-features {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 7px;
+}
+
+.center-column .model-features h3 {
+  grid-column: 1 / -1;
+}
+
+.center-column .feature-row {
+  width: 100%;
+
+  min-width: 0;
+
+  min-height: 58px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: flex-start;
+
+  gap: 3px;
+
+  padding: 8px 9px !important;
+
+  border-radius: 7px;
+
+  background: #f8fbff;
+
+  border: 1px solid #dbeafe;
+}
+
+.center-column .feature-row span {
+  color: #64748b;
+
+  font-size: .63rem;
+}
+
+.center-column .feature-row strong {
+  color: #172554;
+
+  font-size: .73rem;
+
+  line-height: 1.25;
+
+  word-break: break-word;
+}
+
+/* =========================================================
+   AI ANALYSIS SUMMARY
+   ========================================================= */
+
+.center-column .risk-disclaimer {
+  grid-column: 1 / -1;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  margin: 0 !important;
+
+  padding: 11px 13px !important;
+
+  border-radius: 8px;
+
+  background: #f1f5f9;
+
+  border: 1px solid #e2e8f0;
+}
+
+/* =========================================================
+   PREVENT OVERFLOW
+   ========================================================= */
+
+.center-column .risk-analysis > * {
+  min-width: 0;
+
+  box-sizing: border-box;
+}
+
+.center-column .risk-analysis img,
+.center-column .risk-analysis svg {
+  max-width: 100%;
+}
+
+/* =========================================================
+   DESKTOP REFERENCE
+   ========================================================= */
+
+@media (min-width: 1200px) {
+
+  .center-column .risk-analysis {
+    grid-template-columns:
+      minmax(0, 40fr)
+      minmax(0, 60fr);
+  }
+
+  .center-column .weather-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  .center-column .model-features {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .center-column .risk-analysis {
+    display: flex !important;
+
+    flex-direction: column !important;
+  }
+
+  .center-column .risk-result,
+  .center-column .risk-analysis > .alert-panel {
+    width: 100% !important;
+
+    min-height: 0;
+  }
+
+  .center-column .weather-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .center-column .model-features {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .center-column .model-features h3 {
+    grid-column: 1 / -1;
+  }
+
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .center-column .ai-card {
+    height: auto !important;
+  }
+
+  .center-column .ai-card-header {
+    flex-direction: column !important;
+  }
+
+  .center-column .ai-card-header h2 {
+    white-space: normal;
+  }
+
+  .center-column .ai-model-badge {
+    align-items: flex-start !important;
+
+    text-align: left;
+  }
+
+  .center-column .risk-analysis {
+    display: flex !important;
+
+    flex-direction: column !important;
+  }
+
+  .center-column .weather-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .center-column .model-features {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+
+/* =========================================================
+   MIDDLE AI CARD — FULL HEIGHT
+   Match LEFT + RIGHT column height
+   ========================================================= */
+
+.sidebar {
+  align-items: stretch !important;
+}
+
+/* All three columns use the same row height */
+.left-column,
+.center-column,
+.right-column {
+  align-self: stretch !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+/* Center AI card fills the complete middle column */
+.center-column {
+  align-self: stretch !important;
+}
+
+.center-column .ai-card {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+
+  box-sizing: border-box;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  overflow: hidden !important;
+}
+
+/* AI content gets the remaining card space */
+.center-column .ai-empty {
+  width: 100% !important;
+
+  flex: 1 1 auto !important;
+
+  min-height: 0 !important;
+
+  box-sizing: border-box;
+
+  overflow: hidden !important;
+}
+
+/* =========================================================
+   SELECTED AI RESULT — USE FULL CARD WIDTH
+   ========================================================= */
+
+.center-column .risk-analysis {
+  width: 100% !important;
+
+  box-sizing: border-box;
+
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(0, 40fr)
+    minmax(0, 60fr);
+
+  gap: 10px;
+
+  align-items: stretch;
+
+  overflow: visible !important;
+}
+
+/* Risk card */
+.center-column .risk-analysis > .risk-result {
+  width: 100% !important;
+
+  min-width: 0;
+
+  min-height: 190px;
+
+  box-sizing: border-box;
+}
+
+/* Warning card */
+.center-column .risk-analysis > .alert-panel {
+  width: 100% !important;
+
+  min-width: 0;
+
+  min-height: 190px;
+
+  box-sizing: border-box;
+
+  margin: 0 !important;
+}
+
+/* Weather occupies complete row */
+.center-column .weather-section {
+  grid-column: 1 / -1;
+
+  width: 100% !important;
+}
+
+/* Weather cards */
+.center-column .weather-grid {
+  width: 100% !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr)) !important;
+
+  gap: 8px !important;
+}
+
+/* Terrain section */
+.center-column .model-features {
+  grid-column: 1 / -1;
+
+  width: 100% !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 8px;
+}
+
+/* Summary */
+.center-column .risk-disclaimer {
+  grid-column: 1 / -1;
+
+  width: 100% !important;
+
+  box-sizing: border-box;
+
+  margin: 0 !important;
+}
+
+/* =========================================================
+   AI PREVIEW — FILL THE EMPTY HEIGHT
+   ========================================================= */
+
+.center-column .ai-preview {
+  width: 100% !important;
+
+  min-height: 100%;
+
+  box-sizing: border-box;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  justify-content: space-between !important;
+
+  gap: 12px !important;
+}
+
+/* Intro */
+.center-column .ai-preview-intro {
+  width: 100% !important;
+
+  min-height: 112px;
+
+  flex-shrink: 0;
+
+  box-sizing: border-box;
+}
+
+/* Four feature cards */
+.center-column .ai-preview-grid {
+  width: 100% !important;
+
+  flex-shrink: 0;
+
+  display: grid !important;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr)) !important;
+
+  gap: 9px !important;
+}
+
+.center-column .ai-preview-item {
+  min-height: 82px;
+
+  width: 100% !important;
+
+  box-sizing: border-box;
+}
+
+/* Ready message */
+.center-column .ai-preview-action {
+  width: 100% !important;
+
+  min-height: 76px;
+
+  flex-shrink: 0;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   PREVIEW EXTRA INFORMATION
+   ========================================================= */
+
+.center-column .ai-preview-details {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 9px;
+
+  flex-shrink: 0;
+}
+
+.center-column .ai-preview-detail {
+  min-height: 70px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  padding: 10px 12px;
+
+  border-radius: 9px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+}
+
+.center-column .ai-preview-detail span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #64748b;
+
+  font-size: .64rem;
+
+  font-weight: 800;
+}
+
+.center-column .ai-preview-detail strong {
+  display: block;
+
+  color: #1e293b;
+
+  font-size: .75rem;
+
+  line-height: 1.3;
+}
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 1200px) {
+
+  .center-column .risk-analysis {
+    grid-template-columns:
+      minmax(0, 40fr)
+      minmax(0, 60fr);
+  }
+
+  .center-column .weather-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  .center-column .model-features {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .center-column .risk-analysis {
+    display: flex !important;
+
+    flex-direction: column !important;
+  }
+
+  .center-column .weather-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .center-column .model-features {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .center-column .ai-card {
+    height: auto !important;
+  }
+
+  .center-column .ai-empty {
+    overflow: visible !important;
+  }
+
+  .center-column .ai-preview {
+    min-height: 0;
+  }
+
+  .center-column .ai-preview-details {
+    grid-template-columns: 1fr;
+  }
+
+  .center-column .ai-preview-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .center-column .weather-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+  }
+
+}
+
+
+/* ============================================================
+   FINAL 3-COLUMN DASHBOARD GRID
+   LEFT = Emergency + Report
+   CENTER = AI Risk Assessment
+   RIGHT = Historical + Coverage
+   ============================================================ */
+
+.main-content {
+  width: min(1450px, 94%);
+  margin: 25px auto;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+  align-items: stretch !important;
+}
+
+/* KPI stays at top */
+.kpi-section {
+  width: 100% !important;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   THREE MAIN COLUMNS
+   ============================================================ */
+
+.sidebar {
+  width: 100% !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(250px, 1fr)
+    minmax(430px, 1.85fr)
+    minmax(250px, 1fr) !important;
+
+  gap: 16px !important;
+
+  align-items: stretch !important;
+
+  box-sizing: border-box;
+}
+
+/* Every column must stretch to the same grid-row height */
+.dashboard-column {
+  min-width: 0 !important;
+
+  height: 100% !important;
+
+  min-height: 0 !important;
+
+  box-sizing: border-box;
+
+  align-self: stretch !important;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 14px !important;
+}
+
+/* ============================================================
+   LEFT + RIGHT CARDS
+   ============================================================ */
+
+.left-column .sidebar-card,
+.right-column .sidebar-card {
+  width: 100% !important;
+
+  box-sizing: border-box;
+
+  flex-shrink: 0;
+}
+
+/* Left report card can naturally grow */
+.left-column .report-card {
+  flex: 0 0 auto;
+}
+
+/* Right cards */
+.right-column .sidebar-card {
+  flex: 0 0 auto;
+}
+
+/* ============================================================
+   CENTER COLUMN
+   ============================================================ */
+
+.center-column {
+  height: 100% !important;
+
+  min-height: 0 !important;
+
+  align-self: stretch !important;
+}
+
+.center-column .ai-card {
+  width: 100% !important;
+
+  height: 100% !important;
+
+  min-height: 0 !important;
+
+  flex: 1 1 auto !important;
+
+  box-sizing: border-box;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  overflow: hidden !important;
+}
+
+/* ============================================================
+   AI EMPTY / PREVIEW STATE
+   ============================================================ */
+
+.center-column .ai-preview {
+  width: 100% !important;
+
+  height: 100% !important;
+
+  min-height: 0 !important;
+
+  flex: 1 1 auto !important;
+
+  box-sizing: border-box;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 10px !important;
+
+  overflow: hidden !important;
+}
+
+/* Intro */
+.center-column .ai-preview-intro {
+  flex-shrink: 0 !important;
+
+  width: 100% !important;
+
+  box-sizing: border-box;
+}
+
+/* Feature cards */
+.center-column .ai-preview-grid {
+  flex-shrink: 0 !important;
+
+  width: 100% !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr)) !important;
+
+  gap: 8px !important;
+}
+
+.center-column .ai-preview-item {
+  min-width: 0 !important;
+
+  min-height: 72px;
+
+  box-sizing: border-box;
+}
+
+/* Ready message */
+.center-column .ai-preview-action {
+  flex-shrink: 0 !important;
+
+  width: 100% !important;
+
+  min-height: 68px;
+
+  box-sizing: border-box;
+}
+
+/* Extra information */
+.center-column .ai-preview-details {
+  flex-shrink: 0 !important;
+
+  width: 100% !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr)) !important;
+
+  gap: 8px !important;
+}
+
+.center-column .ai-preview-detail {
+  min-height: 64px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  padding: 8px 10px;
+
+  border-radius: 8px;
+
+  background: #f8fafc;
+
+  border: 1px solid #dbeafe;
+}
+
+.center-column .ai-preview-detail span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #64748b;
+
+  font-size: .62rem;
+
+  font-weight: 800;
+}
+
+.center-column .ai-preview-detail strong {
+  color: #1e293b;
+
+  font-size: .72rem;
+
+  line-height: 1.25;
+}
+
+/* ============================================================
+   SELECTED LOCATION AI CONTENT
+   ============================================================ */
+
+.center-column .risk-analysis {
+  width: 100% !important;
+
+  box-sizing: border-box;
+
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(0, 40fr)
+    minmax(0, 60fr) !important;
+
+  gap: 10px !important;
+
+  align-items: stretch !important;
+
+  overflow: visible !important;
+}
+
+/* Risk box */
+.center-column .risk-analysis > .risk-result {
+  width: 100% !important;
+
+  min-width: 0 !important;
+
+  min-height: 190px;
+
+  box-sizing: border-box;
+}
+
+/* Alert box */
+.center-column .risk-analysis > .alert-panel {
+  width: 100% !important;
+
+  min-width: 0 !important;
+
+  min-height: 190px;
+
+  margin: 0 !important;
+
+  box-sizing: border-box;
+}
+
+/* Weather */
+.center-column .weather-section {
+  grid-column: 1 / -1;
+
+  width: 100% !important;
+
+  box-sizing: border-box;
+}
+
+.center-column .weather-grid {
+  width: 100% !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr)) !important;
+
+  gap: 7px !important;
+}
+
+/* Terrain */
+.center-column .model-features {
+  grid-column: 1 / -1;
+
+  width: 100% !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr)) !important;
+
+  gap: 7px !important;
+}
+
+/* Summary */
+.center-column .risk-disclaimer {
+  grid-column: 1 / -1;
+
+  width: 100% !important;
+
+  box-sizing: border-box;
+
+  margin: 0 !important;
+}
+
+/* ============================================================
+   MAP MUST COME DIRECTLY AFTER THE 3-COLUMN AREA
+   ============================================================ */
+
+.map-section {
+  width: 100% !important;
+
+  margin-top: 0 !important;
+
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+  .sidebar {
+    grid-template-columns:
+      minmax(220px, 1fr)
+      minmax(360px, 1.5fr)
+      minmax(220px, 1fr) !important;
+  }
+
+  .center-column .risk-analysis {
+    display: flex !important;
+
+    flex-direction: column !important;
+  }
+
+  .center-column .weather-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .center-column .model-features {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+  }
+
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 850px) {
+
+  .sidebar {
+    grid-template-columns: 1fr !important;
+
+    align-items: stretch !important;
+  }
+
+  .dashboard-column {
+    height: auto !important;
+
+    min-height: 0 !important;
+  }
+
+  .center-column .ai-card {
+    height: auto !important;
+
+    min-height: 0 !important;
+  }
+
+  .center-column .ai-preview {
+    height: auto !important;
+
+    min-height: 0 !important;
+
+    overflow: visible !important;
+  }
+
+}
+
+
+/* ============================================================
+   AI PREVIEW SUMMARY
+   ============================================================ */
+
+.center-column .ai-preview-summary {
+  width: 100% !important;
+
+  flex-shrink: 0 !important;
+
+  box-sizing: border-box;
+
+  padding: 11px 13px;
+
+  border-radius: 8px;
+
+  background: #f1f5f9;
+
+  border: 1px solid #e2e8f0;
+}
+
+.center-column .ai-preview-summary strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #1e293b;
+
+  font-size: .76rem;
+}
+
+.center-column .ai-preview-summary p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: .68rem;
+
+  line-height: 1.4;
+}
+
+/* ============================================================
+   MAKE MIDDLE CARD VISUALLY COMPLETE
+   ============================================================ */
+
+@media (min-width: 1101px) {
+
+  .center-column .ai-preview {
+    justify-content: flex-start !important;
+  }
+
+  .center-column .ai-preview-intro {
+    min-height: 105px;
+  }
+
+  .center-column .ai-preview-grid {
+    min-height: 150px;
+  }
+
+  .center-column .ai-preview-item {
+    min-height: 70px;
+  }
+
+  .center-column .ai-preview-action {
+    min-height: 72px;
+  }
+
+  .center-column .ai-preview-details {
+    min-height: 136px;
+  }
+
+  .center-column .ai-preview-detail {
+    min-height: 62px;
+  }
+
+  .center-column .ai-preview-summary {
+    min-height: 72px;
+  }
+
+}
+
+
+/* ============================================================
+   FINAL — ALL 3 MAIN COLUMNS SAME HEIGHT
+   ============================================================ */
+
+/* The three-column area must have one common height */
+.sidebar {
+  width: 100% !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1.85fr)
+    minmax(0, 1fr) !important;
+
+  gap: 16px !important;
+
+  align-items: stretch !important;
+
+  grid-auto-rows: 1fr !important;
+
+  box-sizing: border-box;
+}
+
+/* Every column fills the complete grid height */
+.sidebar > .dashboard-column {
+  width: 100% !important;
+
+  height: 100% !important;
+
+  min-height: 0 !important;
+
+  align-self: stretch !important;
+
+  box-sizing: border-box;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 14px !important;
+}
+
+/* ============================================================
+   LEFT COLUMN
+   ============================================================ */
+
+.left-column {
+  height: 100% !important;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+}
+
+/*
+   Emergency + Report together occupy
+   the full left-column height.
+*/
+.left-column .emergency-card,
+.left-column .report-card {
+  width: 100% !important;
+
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   CENTER COLUMN
+   ============================================================ */
+
+.center-column {
+  height: 100% !important;
+
+  min-height: 0 !important;
+
+  align-self: stretch !important;
+}
+
+.center-column .ai-card {
+  width: 100% !important;
+
+  height: 100% !important;
+
+  min-height: 0 !important;
+
+  flex: 1 1 auto !important;
+
+  box-sizing: border-box;
+
+  overflow: hidden !important;
+}
+
+/* ============================================================
+   RIGHT COLUMN
+   ============================================================ */
+
+.right-column {
+  height: 100% !important;
+
+  min-height: 0 !important;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 14px !important;
+
+  align-self: stretch !important;
+}
+
+/*
+   IMPORTANT:
+   Both right cards now share the same total height
+   as the left and center columns.
+*/
+.right-column .sidebar-card {
+  width: 100% !important;
+
+  box-sizing: border-box;
+
+  min-height: 0 !important;
+
+  flex: 1 1 0 !important;
+}
+
+/* Historical card */
+.right-column .sidebar-card:not(.coverage-card) {
+  flex: 1 1 0 !important;
+
+  min-height: 0 !important;
+}
+
+/* Monitoring coverage */
+.right-column .coverage-card {
+  flex: 1 1 0 !important;
+
+  min-height: 0 !important;
+}
+
+/* ============================================================
+   KEEP RIGHT CARD CONTENT CENTERED
+   ============================================================ */
+
+.right-column .sidebar-card {
+  display: flex !important;
+
+  flex-direction: column !important;
+}
+
+.right-column .sidebar-card > h2 {
+  flex-shrink: 0;
+}
+
+.right-column .sidebar-card > * {
+  max-width: 100%;
+}
+
+/* ============================================================
+   LEFT CARDS — BALANCED HEIGHT
+   ============================================================ */
+
+.left-column .emergency-card {
+  flex: 0 0 auto !important;
+}
+
+.left-column .report-card {
+  flex: 1 1 auto !important;
+
+  min-height: 0 !important;
+}
+
+/* ============================================================
+   CENTER CONTENT MUST NOT CREATE OUTSIDE OVERFLOW
+   ============================================================ */
+
+.center-column .ai-card {
+  overflow: hidden !important;
+}
+
+.center-column .ai-preview {
+  min-height: 0 !important;
+
+  max-height: 100% !important;
+
+  overflow-y: auto !important;
+
+  overflow-x: hidden !important;
+}
+
+/* ============================================================
+   DESKTOP — EXACT 3 COLUMN BALANCE
+   ============================================================ */
+
+@media (min-width: 1101px) {
+
+  .sidebar {
+    align-items: stretch !important;
+  }
+
+  .left-column,
+  .center-column,
+  .right-column {
+    height: 100% !important;
+
+    min-height: 0 !important;
+  }
+
+  /*
+     Right column cards together fill exactly
+     the same vertical area.
+  */
+  .right-column {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 14px !important;
+  }
+
+  .right-column .sidebar-card {
+    flex: 1 1 0 !important;
+
+    min-height: 0 !important;
+  }
+
+}
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+  .sidebar {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1.5fr)
+      minmax(0, 1fr) !important;
+  }
+
+  .right-column .sidebar-card {
+    flex: 1 1 0 !important;
+  }
+
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 850px) {
+
+  .sidebar {
+    grid-template-columns: 1fr !important;
+
+    grid-auto-rows: auto !important;
+  }
+
+  .sidebar > .dashboard-column {
+    height: auto !important;
+  }
+
+  .right-column {
+    height: auto !important;
+  }
+
+  .right-column .sidebar-card {
+    flex: 0 0 auto !important;
+
+    min-height: 0 !important;
+  }
+
+  .center-column .ai-card {
+    height: auto !important;
+  }
+
+  .center-column .ai-preview {
+    max-height: none !important;
+
+    overflow: visible !important;
+  }
+
+}
+
+
+/* ============================================================
+   HISTORICAL LANDSLIDE — FILLED CONTENT
+   ============================================================ */
+
+.right-column .historical-extra {
+  width: 100%;
+
+  margin-top: auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+  box-sizing: border-box;
+}
+
+.right-column .historical-status {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 9px 10px;
+
+  border-radius: 8px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+}
+
+.right-column .status-dot {
+  width: 9px;
+  height: 9px;
+
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+
+  box-shadow: 0 0 0 3px #dbeafe;
+}
+
+.right-column .historical-status strong {
+  display: block;
+
+  color: #1e293b;
+
+  font-size: .72rem;
+}
+
+.right-column .historical-status p {
+  margin: 2px 0 0;
+
+  color: #64748b;
+
+  font-size: .61rem;
+
+  line-height: 1.3;
+}
+
+/* Historical information boxes */
+
+.right-column .historical-info-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 7px;
+}
+
+.right-column .historical-info-item {
+  min-height: 57px;
+
+  padding: 8px;
+
+  box-sizing: border-box;
+
+  border-radius: 7px;
+
+  background: #f8fbff;
+
+  border: 1px solid #dbeafe;
+}
+
+.right-column .historical-info-item span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #64748b;
+
+  font-size: .58rem;
+
+  font-weight: 800;
+}
+
+.right-column .historical-info-item strong {
+  display: block;
+
+  color: #1e293b;
+
+  font-size: .66rem;
+
+  line-height: 1.25;
+}
+
+.right-column .historical-help {
+  padding: 9px 10px;
+
+  border-radius: 8px;
+
+  background: #eff6ff;
+
+  border: 1px solid #bfdbfe;
+}
+
+.right-column .historical-help strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #1d4ed8;
+
+  font-size: .68rem;
+}
+
+.right-column .historical-help p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: .61rem;
+
+  line-height: 1.35;
+}
+
+
+/* ============================================================
+   MONITORING COVERAGE — FILLED CONTENT
+   ============================================================ */
+
+.right-column .coverage-extra {
+  width: 100%;
+
+  margin-top: auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 9px;
+
+  box-sizing: border-box;
+}
+
+.right-column .coverage-source {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 9px;
+
+  border-radius: 8px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+}
+
+.right-column .coverage-source-icon {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  border-radius: 7px;
+
+  background: #eff6ff;
+
+  font-size: 1rem;
+}
+
+.right-column .coverage-source strong {
+  display: block;
+
+  color: #1e293b;
+
+  font-size: .68rem;
+}
+
+.right-column .coverage-source p {
+  margin: 2px 0 0;
+
+  color: #64748b;
+
+  font-size: .59rem;
+
+  line-height: 1.3;
+}
+
+
+/* Pipeline */
+
+.right-column .coverage-pipeline {
+  padding: 9px;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+}
+
+.right-column .coverage-pipeline-title {
+  margin-bottom: 7px;
+
+  color: #64748b;
+
+  font-size: .59rem;
+
+  font-weight: 800;
+
+  letter-spacing: .04em;
+}
+
+.right-column .coverage-step {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 6px 0;
+
+  border-top: 1px solid #f1f5f9;
+}
+
+.right-column .coverage-step:first-of-type {
+  border-top: 0;
+}
+
+.right-column .coverage-step > span {
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+
+  background: #eff6ff;
+
+  color: #2563eb;
+
+  font-size: .56rem;
+
+  font-weight: 800;
+}
+
+.right-column .coverage-step strong {
+  display: block;
+
+  color: #1e293b;
+
+  font-size: .63rem;
+}
+
+.right-column .coverage-step small {
+  display: block;
+
+  margin-top: 1px;
+
+  color: #94a3b8;
+
+  font-size: .56rem;
+
+  line-height: 1.2;
+}
+
+
+/* Coverage note */
+
+.right-column .coverage-note {
+  padding: 9px 10px;
+
+  border-radius: 8px;
+
+  background: #f0fdf4;
+
+  border: 1px solid #bbf7d0;
+}
+
+.right-column .coverage-note strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #047857;
+
+  font-size: .68rem;
+}
+
+.right-column .coverage-note p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: .59rem;
+
+  line-height: 1.35;
+}
+
+
+/* ============================================================
+   RIGHT CARDS — DON'T LEAVE LARGE EMPTY AREAS
+   ============================================================ */
+
+@media (min-width: 1101px) {
+
+  .right-column .historical-extra,
+  .right-column .coverage-extra {
+    margin-top: 12px;
+  }
+
+  .right-column .sidebar-card {
+    justify-content: flex-start !important;
+  }
+
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+  .right-column .historical-info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 850px) {
+
+  .right-column .historical-extra,
+  .right-column .coverage-extra {
+    margin-top: 10px;
+  }
+
+}
+
+
+/* ============================================================
+   RIGHT COLUMN — FINAL OVERLAP FIX
+   ============================================================ */
+
+.right-column {
+  width: 100% !important;
+
+  height: 100% !important;
+
+  min-height: 0 !important;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 14px !important;
+
+  overflow: visible !important;
+
+  box-sizing: border-box;
+}
+
+/*
+   Don't force equal flex heights on the two cards.
+   Let their content determine their height.
+*/
+.right-column .sidebar-card {
+  width: 100% !important;
+
+  height: auto !important;
+
+  min-height: 0 !important;
+
+  flex: 0 0 auto !important;
+
+  box-sizing: border-box;
+
+  overflow: hidden !important;
+
+  position: relative;
+}
+
+/* ============================================================
+   HISTORICAL CARD
+   ============================================================ */
+
+.right-column .historical-extra {
+  width: 100% !important;
+
+  margin-top: 14px !important;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 10px !important;
+
+  box-sizing: border-box;
+
+  position: relative;
+
+  clear: both;
+}
+
+.right-column .historical-status {
+  width: 100% !important;
+
+  box-sizing: border-box;
+}
+
+.right-column .historical-info-grid {
+  width: 100% !important;
+
+  box-sizing: border-box;
+
+  display: grid !important;
+
+  grid-template-columns: 1fr 1fr !important;
+
+  gap: 7px !important;
+}
+
+.right-column .historical-info-item {
+  width: 100% !important;
+
+  min-width: 0 !important;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+.right-column .historical-help {
+  width: 100% !important;
+
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   COVERAGE CARD
+   ============================================================ */
+
+.right-column .coverage-card {
+  width: 100% !important;
+
+  height: auto !important;
+
+  min-height: 0 !important;
+
+  flex: 0 0 auto !important;
+
+  box-sizing: border-box;
+
+  overflow: hidden !important;
+}
+
+.right-column .coverage-extra {
+  width: 100% !important;
+
+  margin-top: 14px !important;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 10px !important;
+
+  box-sizing: border-box;
+
+  position: relative;
+
+  clear: both;
+}
+
+/* Multi-source box */
+.right-column .coverage-source {
+  width: 100% !important;
+
+  min-width: 0 !important;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+/* Pipeline */
+.right-column .coverage-pipeline {
+  width: 100% !important;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+.right-column .coverage-step {
+  width: 100% !important;
+
+  min-width: 0 !important;
+
+  box-sizing: border-box;
+}
+
+.right-column .coverage-step > div {
+  min-width: 0 !important;
+
+  overflow: hidden;
+}
+
+/* Note */
+.right-column .coverage-note {
+  width: 100% !important;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+/* ============================================================
+   MAP LEGEND — KEEP INSIDE COVERAGE CARD
+   ============================================================ */
+
+.right-column .coverage-card .legend,
+.right-column .coverage-card .map-legend {
+  width: 100% !important;
+
+  box-sizing: border-box;
+
+  position: relative !important;
+
+  margin-top: 10px;
+}
+
+/* ============================================================
+   REMOVE OLD FLEX STRETCH BEHAVIOUR
+   ============================================================ */
+
+@media (min-width: 1101px) {
+
+  .right-column .sidebar-card,
+  .right-column .coverage-card,
+  .right-column .sidebar-card:not(.coverage-card) {
+    flex: 0 0 auto !important;
+
+    height: auto !important;
+  }
+
+  .right-column {
+    height: auto !important;
+
+    align-self: stretch !important;
+  }
+
+}
+
+/* ============================================================
+   DESKTOP — COMPACT, NO OVERLAP
+   ============================================================ */
+
+@media (min-width: 1101px) {
+
+  .right-column .historical-extra {
+    margin-top: 12px !important;
+  }
+
+  .right-column .coverage-extra {
+    margin-top: 12px !important;
+  }
+
+  .right-column .historical-info-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 850px) {
+
+  .right-column {
+    height: auto !important;
+
+    gap: 14px !important;
+  }
+
+  .right-column .sidebar-card,
+  .right-column .coverage-card {
+    height: auto !important;
+
+    flex: 0 0 auto !important;
+  }
+
+  .right-column .historical-extra,
+  .right-column .coverage-extra {
+    margin-top: 10px !important;
+  }
+
+}
+
+
+/* ============================================================
+   LEFT COLUMN — ADDITIONAL CONTENT
+   ============================================================ */
+
+.left-column {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+  min-width: 0 !important;
+}
+
+/* ============================================================
+   EMERGENCY RESPONSE GUIDANCE
+   ============================================================ */
+
+.emergency-guidance {
+  margin-top: 14px;
+  padding: 13px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  box-sizing: border-box;
+}
+
+.guidance-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #334155;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.guidance-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+.guidance-row:first-of-type {
+  border-top: none;
+}
+
+.guidance-row div {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.guidance-row strong {
+  font-size: 0.75rem;
+  color: #1e293b;
+}
+
+.guidance-row small {
+  font-size: 0.65rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.guidance-dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border-radius: 50%;
+}
+
+.critical-dot {
+  background: #dc2626;
+}
+
+.high-dot {
+  background: #f97316;
+}
+
+.medium-dot {
+  background: #eab308;
+}
+
+.low-dot {
+  background: #22c55e;
+}
+
+.emergency-info-box {
+  margin-top: 12px;
+  padding: 11px 12px;
+  border-radius: 9px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  box-sizing: border-box;
+}
+
+.emergency-info-box strong {
+  display: block;
+  font-size: 0.75rem;
+  color: #9a3412;
+  margin-bottom: 5px;
+}
+
+.emergency-info-box p {
+  margin: 0;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  color: #7c2d12;
+}
+
+/* ============================================================
+   REPORTING CHECKLIST
+   ============================================================ */
+
+.report-guidance {
+  margin-top: 15px;
+  padding: 13px;
+  border: 1px solid #dbeafe;
+  border-radius: 10px;
+  background: #f8fbff;
+  box-sizing: border-box;
+}
+
+.report-guidance .guidance-title {
+  color: #1e40af;
+}
+
+.report-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 7px 0;
+  border-top: 1px solid #dbeafe;
+}
+
+.report-check:first-of-type {
+  border-top: none;
+}
+
+.report-check span {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: #2563eb;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.report-check p {
+  margin: 0;
+  color: #475569;
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+.report-info-box {
+  margin-top: 12px;
+  padding: 11px 12px;
+  border-radius: 9px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  box-sizing: border-box;
+}
+
+.report-info-box strong {
+  display: block;
+  font-size: 0.75rem;
+  color: #1d4ed8;
+  margin-bottom: 5px;
+}
+
+.report-info-box p {
+  margin: 0;
+  color: #475569;
+  font-size: 0.68rem;
+  line-height: 1.45;
+}
+
+/* ============================================================
+   PREVENT CONTENT FROM ESCAPING CARD
+   ============================================================ */
+
+.left-column .sidebar-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  height: auto !important;
+}
+
+.left-column .emergency-card,
+.left-column .report-card {
+  flex: 0 0 auto !important;
+}
+
+/* ============================================================
+   DESKTOP SPACING
+   ============================================================ */
+
+@media (min-width: 1101px) {
+
+  .left-column .emergency-card,
+  .left-column .report-card {
+    padding: 16px !important;
+  }
+
+  .emergency-guidance {
+    margin-top: 12px;
+  }
+
+  .report-guidance {
+    margin-top: 12px;
+  }
+
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 850px) {
+
+  .left-column {
+    gap: 14px !important;
+  }
+
+  .emergency-guidance,
+  .report-guidance {
+    margin-top: 12px;
+  }
+
+}
+
+
+/* ============================================================
+   FINAL 3-COLUMN EQUAL HEIGHT LAYOUT
+   Left = Emergency + Report
+   Middle = AI Risk Assessment
+   Right = Historical + Coverage
+   All three columns finish at exactly the same bottom level.
+   ============================================================ */
+
+@media (min-width: 1101px) {
+
+  /* Main 3-column area */
+  .sidebar {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1.35fr)
+      minmax(0, 1fr) !important;
+
+    column-gap: 14px !important;
+
+    align-items: stretch !important;
+
+    height: auto !important;
+
+    min-height: 0 !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* Every column must take the full height
+     determined by the tallest column — middle AI card */
+  .dashboard-column {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    height: 100% !important;
+
+    min-height: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-self: stretch !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* ==========================================================
+     LEFT COLUMN
+     ========================================================== */
+
+  .left-column {
+    gap: 14px !important;
+
+    height: 100% !important;
+
+    align-self: stretch !important;
+  }
+
+  .left-column .emergency-card,
+  .left-column .report-card {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    min-height: 0 !important;
+
+    flex: 1 1 0 !important;
+
+    height: auto !important;
+
+    overflow: hidden !important;
+  }
+
+
+  /* Keep content nicely distributed */
+  .left-column .emergency-card {
+    display: flex !important;
+
+    flex-direction: column !important;
+  }
+
+  .left-column .report-card {
+    display: flex !important;
+
+    flex-direction: column !important;
+  }
+
+  .left-column .emergency-guidance,
+  .left-column .emergency-info-box,
+  .left-column .report-guidance,
+  .left-column .report-info-box {
+    flex-shrink: 0 !important;
+  }
+
+
+  /* ==========================================================
+     MIDDLE COLUMN
+     ========================================================== */
+
+  .center-column {
+    height: 100% !important;
+
+    align-self: stretch !important;
+
+    min-height: 0 !important;
+  }
+
+  .center-column .ai-card {
+    width: 100% !important;
+
+    height: 100% !important;
+
+    min-height: 100% !important;
+
+    flex: 1 1 auto !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+  }
+
+
+  /* AI content fills the available card */
+  .center-column .risk-analysis {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* ==========================================================
+     RIGHT COLUMN
+     ========================================================== */
+
+  .right-column {
+    height: 100% !important;
+
+    align-self: stretch !important;
+
+    min-height: 0 !important;
+
+    gap: 14px !important;
+  }
+
+
+  .right-column .sidebar-card {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    min-height: 0 !important;
+
+    flex: 1 1 0 !important;
+
+    height: auto !important;
+
+    overflow: hidden !important;
+  }
+
+
+  .right-column .coverage-card {
+    flex: 1 1 0 !important;
+
+    min-height: 0 !important;
+
+    height: auto !important;
+  }
+
+
+  /* ==========================================================
+     MAKE CONTENT FIT INSIDE THE EQUAL HEIGHT CARDS
+     ========================================================== */
+
+  .left-column .sidebar-card,
+  .center-column .sidebar-card,
+  .right-column .sidebar-card {
+    min-width: 0 !important;
+
+    max-width: 100% !important;
+
+    position: relative !important;
+  }
+
+
+  /* Don't allow long text to push outside */
+  .sidebar-card p,
+  .sidebar-card h2,
+  .sidebar-card h3,
+  .sidebar-card strong,
+  .sidebar-card span {
+    max-width: 100%;
+
+    overflow-wrap: break-word;
+  }
+
+
+  /* ==========================================================
+     RIGHT COVERAGE CONTENT
+     ========================================================== */
+
+  .right-column .coverage-extra {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    flex-shrink: 1 !important;
+  }
+
+  .right-column .coverage-source,
+  .right-column .coverage-pipeline {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* ==========================================================
+     LEFT REPORT CONTENT
+     ========================================================== */
+
+  .left-column .report-guidance {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+  }
+
+  .left-column .report-info-box {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* ==========================================================
+     VISUAL CONSISTENCY
+     ========================================================== */
+
+  .left-column .sidebar-card,
+  .center-column .ai-card,
+  .right-column .sidebar-card {
+    border-radius: 12px !important;
+  }
+
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (min-width: 851px) and (max-width: 1100px) {
+
+  .sidebar {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1.2fr)
+      minmax(0, 1fr) !important;
+
+    gap: 12px !important;
+
+    align-items: stretch !important;
+  }
+
+  .dashboard-column {
+    height: auto !important;
+  }
+
+  .left-column,
+  .right-column {
+    height: auto !important;
+  }
+
+  .left-column .sidebar-card,
+  .right-column .sidebar-card {
+    flex: 0 0 auto !important;
+    height: auto !important;
+  }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 850px) {
+
+  .sidebar {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 14px !important;
+  }
+
+  .dashboard-column {
+    width: 100% !important;
+
+    height: auto !important;
+  }
+
+  .left-column,
+  .center-column,
+  .right-column {
+    height: auto !important;
+  }
+
+  .left-column .sidebar-card,
+  .center-column .ai-card,
+  .right-column .sidebar-card {
+    height: auto !important;
+
+    min-height: 0 !important;
+
+    flex: 0 0 auto !important;
+  }
+
+}
+
+
+/* ============================================================
+   FINAL CARD GRID
+   1 = Emergency
+   2 = AI Risk Assessment
+   3 = Historical / Coverage
+   ============================================================ */
+
+@media (min-width: 1101px) {
+
+  /* Main three-column card area */
+  .sidebar {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1.35fr)
+      minmax(0, 1fr) !important;
+
+    grid-template-rows:
+      minmax(0, 1fr)
+      minmax(0, 1fr) !important;
+
+    gap: 14px !important;
+
+    align-items: stretch !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* ==========================================================
+     LEFT COLUMN
+     ========================================================== */
+
+  .left-column {
+    grid-column: 1 !important;
+    grid-row: 1 / 3 !important;
+
+    display: grid !important;
+
+    grid-template-rows:
+      minmax(0, 1fr)
+      minmax(0, 1fr) !important;
+
+    gap: 14px !important;
+
+    height: 100% !important;
+
+    min-height: 0 !important;
+
+    align-self: stretch !important;
+  }
+
+
+  /* ==========================================================
+     MIDDLE COLUMN
+     ========================================================== */
+
+  .center-column {
+    grid-column: 2 !important;
+    grid-row: 1 / 3 !important;
+
+    height: 100% !important;
+
+    min-height: 0 !important;
+
+    align-self: stretch !important;
+  }
+
+
+  .center-column .ai-card {
+    width: 100% !important;
+
+    height: 100% !important;
+
+    min-height: 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+  }
+
+
+  /* ==========================================================
+     RIGHT COLUMN
+     ========================================================== */
+
+  .right-column {
+    grid-column: 3 !important;
+    grid-row: 1 / 3 !important;
+
+    display: grid !important;
+
+    grid-template-rows:
+      minmax(0, 1fr)
+      minmax(0, 1fr) !important;
+
+    gap: 14px !important;
+
+    height: 100% !important;
+
+    min-height: 0 !important;
+
+    align-self: stretch !important;
+  }
+
+
+  /* ==========================================================
+     ALL FOUR SIDE CARDS
+     ========================================================== */
+
+  .left-column .sidebar-card,
+  .right-column .sidebar-card {
+    width: 100% !important;
+
+    height: 100% !important;
+
+    min-height: 0 !important;
+
+    max-height: 100% !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    position: relative !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+  }
+
+
+  /* ==========================================================
+     1ST CARD — EMERGENCY MONITORING
+     ========================================================== */
+
+  .left-column .emergency-card {
+    grid-row: 1 !important;
+
+    padding: 14px !important;
+
+    justify-content: flex-start !important;
+  }
+
+
+  .emergency-card h2 {
+    margin: 4px 0 7px !important;
+
+    font-size: 1rem !important;
+  }
+
+
+  .emergency-card .emergency-description {
+    margin: 5px 0 10px !important;
+
+    font-size: 0.73rem !important;
+
+    line-height: 1.35 !important;
+  }
+
+
+  .emergency-card .emergency-stats {
+    gap: 8px !important;
+
+    margin-top: 4px !important;
+  }
+
+
+  .emergency-card .emergency-stat {
+    min-height: 70px !important;
+
+    padding: 9px !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  .emergency-card .emergency-status {
+    margin-top: 9px !important;
+
+    padding: 9px !important;
+
+    font-size: 0.7rem !important;
+  }
+
+
+  /* Extra response information fits INSIDE first card */
+  .emergency-card .emergency-guidance {
+    margin-top: 9px !important;
+
+    padding: 9px !important;
+
+    flex: 1 1 auto !important;
+
+    min-height: 0 !important;
+
+    overflow: hidden !important;
+  }
+
+
+  .emergency-card .guidance-title {
+    margin-bottom: 5px !important;
+
+    font-size: 0.72rem !important;
+  }
+
+
+  .emergency-card .guidance-row {
+    padding: 4px 0 !important;
+  }
+
+
+  .emergency-card .guidance-row strong {
+    font-size: 0.68rem !important;
+  }
+
+
+  .emergency-card .guidance-row small {
+    font-size: 0.59rem !important;
+  }
+
+
+  .emergency-card .emergency-info-box {
+    margin-top: 8px !important;
+
+    padding: 8px 9px !important;
+
+    flex-shrink: 0 !important;
+  }
+
+
+  .emergency-card .emergency-info-box strong {
+    font-size: 0.68rem !important;
+  }
+
+
+  .emergency-card .emergency-info-box p {
+    font-size: 0.59rem !important;
+
+    line-height: 1.3 !important;
+  }
+
+
+  /* ==========================================================
+     2ND CARD — REPORT LANDSLIDE
+     ========================================================== */
+
+  .left-column .report-card {
+    grid-row: 2 !important;
+
+    padding: 14px !important;
+
+    justify-content: flex-start !important;
+  }
+
+
+  .report-card .report-guidance {
+    margin-top: 9px !important;
+
+    padding: 9px !important;
+
+    flex-shrink: 1 !important;
+
+    min-height: 0 !important;
+
+    overflow: hidden !important;
+  }
+
+
+  .report-card .report-check {
+    padding: 4px 0 !important;
+  }
+
+
+  .report-card .report-check p {
+    font-size: 0.6rem !important;
+
+    line-height: 1.3 !important;
+  }
+
+
+  .report-card .report-info-box {
+    margin-top: 8px !important;
+
+    padding: 8px 9px !important;
+
+    flex-shrink: 0 !important;
+  }
+
+
+  .report-card .report-info-box strong {
+    font-size: 0.68rem !important;
+  }
+
+
+  .report-card .report-info-box p {
+    font-size: 0.59rem !important;
+
+    line-height: 1.3 !important;
+  }
+
+
+  /* Submit button stays inside card */
+  .report-card .report-submit {
+    margin-top: auto !important;
+
+    flex-shrink: 0 !important;
+  }
+
+
+  /* ==========================================================
+     3RD COLUMN — HISTORICAL
+     ========================================================== */
+
+  .right-column > .sidebar-card:first-child {
+    grid-row: 1 !important;
+
+    padding: 14px !important;
+  }
+
+
+  .right-column > .sidebar-card:first-child > * {
+    max-width: 100% !important;
+  }
+
+
+  /* ==========================================================
+     3RD COLUMN — MONITORING COVERAGE
+     ========================================================== */
+
+  .right-column .coverage-card {
+    grid-row: 2 !important;
+
+    padding: 14px !important;
+
+    height: 100% !important;
+
+    min-height: 0 !important;
+
+    overflow: hidden !important;
+  }
+
+
+  .coverage-card .coverage-extra {
+    margin-top: 9px !important;
+
+    min-height: 0 !important;
+
+    overflow: hidden !important;
+  }
+
+
+  .coverage-card .coverage-source {
+    padding: 9px !important;
+
+    min-height: 0 !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  .coverage-card .coverage-pipeline {
+    margin-top: 8px !important;
+
+    padding: 8px !important;
+
+    min-height: 0 !important;
+
+    overflow: hidden !important;
+  }
+
+
+  .coverage-card .coverage-step {
+    padding: 5px 0 !important;
+  }
+
+
+  /* ==========================================================
+     NO CONTENT CAN ESCAPE ANY CARD
+     ========================================================== */
+
+  .left-column *,
+  .center-column *,
+  .right-column * {
+    box-sizing: border-box;
+  }
+
+
+  .left-column .sidebar-card p,
+  .left-column .sidebar-card h2,
+  .left-column .sidebar-card h3,
+  .right-column .sidebar-card p,
+  .right-column .sidebar-card h2,
+  .right-column .sidebar-card h3 {
+    max-width: 100% !important;
+
+    overflow-wrap: anywhere !important;
+  }
+
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (min-width: 851px) and (max-width: 1100px) {
+
+  .sidebar {
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1.25fr)
+      minmax(0, 1fr) !important;
+
+    gap: 12px !important;
+  }
+
+  .left-column,
+  .right-column {
+    height: auto !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 12px !important;
+  }
+
+  .left-column .sidebar-card,
+  .right-column .sidebar-card {
+    height: auto !important;
+
+    max-height: none !important;
+  }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 850px) {
+
+  .sidebar {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 14px !important;
+  }
+
+  .left-column,
+  .center-column,
+  .right-column {
+    width: 100% !important;
+
+    height: auto !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 14px !important;
+  }
+
+  .left-column .sidebar-card,
+  .center-column .ai-card,
+  .right-column .sidebar-card {
+    width: 100% !important;
+
+    height: auto !important;
+
+    max-height: none !important;
+
+    min-height: 0 !important;
+  }
+
+}
+
+
+/* ============================================================
+   EMERGENCY CARD — REMOVE EXTRA HEIGHT / EMPTY SPACE
+   ============================================================ */
+
+@media (min-width: 1101px) {
+
+  /* Left column should NOT divide its height equally */
+  .left-column {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 14px !important;
+
+    height: auto !important;
+    min-height: 0 !important;
+
+    align-self: start !important;
+  }
+
+
+  /* Emergency card = only its actual content height */
+  .left-column .emergency-card {
+    height: auto !important;
+
+    min-height: 0 !important;
+    max-height: none !important;
+
+    flex: 0 0 auto !important;
+
+    align-self: stretch !important;
+
+    padding: 14px !important;
+
+    display: block !important;
+
+    overflow: hidden !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* Remove any artificial stretching */
+  .left-column .emergency-card::before,
+  .left-column .emergency-card::after {
+    display: none !important;
+  }
+
+
+  /* Emergency header */
+  .left-column .emergency-card .emergency-card-header {
+    margin-bottom: 5px !important;
+  }
+
+
+  .left-column .emergency-card h2 {
+    margin: 3px 0 7px !important;
+
+    font-size: 1rem !important;
+
+    line-height: 1.2 !important;
+  }
+
+
+  .left-column .emergency-card .emergency-description {
+    margin: 5px 0 10px !important;
+
+    font-size: 0.72rem !important;
+
+    line-height: 1.35 !important;
+  }
+
+
+  /* Critical / High */
+  .left-column .emergency-card .emergency-stats {
+    margin: 0 !important;
+
+    gap: 8px !important;
+  }
+
+
+  .left-column .emergency-card .emergency-stat {
+    height: 68px !important;
+
+    min-height: 68px !important;
+
+    padding: 8px !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* Immediate attention */
+  .left-column .emergency-card .emergency-status {
+    margin-top: 9px !important;
+
+    min-height: 40px !important;
+
+    height: auto !important;
+
+    padding: 8px !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* Response priority box */
+  .left-column .emergency-card .emergency-guidance {
+    margin-top: 9px !important;
+
+    height: auto !important;
+
+    min-height: 0 !important;
+
+    padding: 9px !important;
+
+    overflow: hidden !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  .left-column .emergency-card .guidance-title {
+    margin-bottom: 5px !important;
+
+    font-size: 0.7rem !important;
+  }
+
+
+  .left-column .emergency-card .guidance-row {
+    padding: 3px 0 !important;
+
+    min-height: 25px !important;
+  }
+
+
+  .left-column .emergency-card .guidance-row strong {
+    font-size: 0.65rem !important;
+  }
+
+
+  .left-column .emergency-card .guidance-row small {
+    font-size: 0.56rem !important;
+  }
+
+
+  /* Live monitoring */
+  .left-column .emergency-card .emergency-info-box {
+    margin-top: 8px !important;
+
+    padding: 8px !important;
+
+    height: auto !important;
+
+    min-height: 0 !important;
+  }
+
+
+  .left-column .emergency-card .emergency-info-box strong {
+    font-size: 0.65rem !important;
+  }
+
+
+  .left-column .emergency-card .emergency-info-box p {
+    margin: 3px 0 0 !important;
+
+    font-size: 0.56rem !important;
+
+    line-height: 1.25 !important;
+  }
+
+
+  /* ==========================================================
+     REPORT CARD — DIRECTLY AFTER EMERGENCY
+     ========================================================== */
+
+  .left-column .report-card {
+    height: auto !important;
+
+    min-height: 0 !important;
+
+    max-height: none !important;
+
+    flex: 0 0 auto !important;
+
+    align-self: stretch !important;
+
+    overflow: hidden !important;
+
+    box-sizing: border-box !important;
+  }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+  .left-column {
+    height: auto !important;
+
+    min-height: 0 !important;
+  }
+
+  .left-column .emergency-card {
+    height: auto !important;
+
+    min-height: 0 !important;
+
+    max-height: none !important;
+
+    flex: 0 0 auto !important;
+  }
+
+  .left-column .report-card {
+    height: auto !important;
+
+    min-height: 0 !important;
+
+    max-height: none !important;
+
+    flex: 0 0 auto !important;
+  }
+
+}
+
+
+/* ============================================================
+   HISTORICAL LANDSLIDE DETAILS — VISIBILITY FIX
+   ============================================================ */
+
+.right-column .sidebar-card:not(.coverage-card) h2 {
+  color: #172b4d !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+}
+
+.right-column .sidebar-card:not(.coverage-card) {
+  color: #172b4d !important;
+}
+
+.right-column .sidebar-card:not(.coverage-card) h2,
+.right-column .sidebar-card:not(.coverage-card) p,
+.right-column .sidebar-card:not(.coverage-card) strong,
+.right-column .sidebar-card:not(.coverage-card) span {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+
+/* ============================================================
+   MONITORING COVERAGE — VISIBILITY FIX
+   ============================================================ */
+
+.right-column .coverage-card {
+  color: #172b4d !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.right-column .coverage-card h2 {
+  color: #172b4d !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+}
+
+.right-column .coverage-card h3,
+.right-column .coverage-card h4,
+.right-column .coverage-card p,
+.right-column .coverage-card span,
+.right-column .coverage-card strong,
+.right-column .coverage-card div {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.right-column .coverage-card .coverage-stat strong {
+  color: #1557d6 !important;
+}
+
+.right-column .coverage-card .coverage-stat.citizen-stat strong {
+  color: #dc2626 !important;
+}
+
+.right-column .coverage-card .coverage-stat span {
+  color: #526581 !important;
+}
+
+.right-column .coverage-card .legend-title {
+  color: #172b4d !important;
+}
+
+.right-column .coverage-card .legend-item,
+.right-column .coverage-card .citizen-legend-item {
+  color: #526581 !important;
+}
+
+
+/* ============================================================
+   MAP — DIRECTLY BELOW 3-COLUMN DASHBOARD CARDS
+   ============================================================ */
+
+@media (min-width: 1101px) {
+
+  .main-content {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+    align-items: stretch !important;
+  }
+
+  .kpi-section {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .sidebar {
+    width: 100% !important;
+    margin: 0 !important;
+    display: grid !important;
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1.35fr)
+      minmax(0, 1fr) !important;
+    gap: 14px !important;
+    align-items: start !important;
+  }
+
+  .dashboard-column {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .map-section {
+    width: 100% !important;
+    margin: 0 !important;
+    min-width: 0 !important;
+  }
+
+  .map-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .map-card .leaflet-container {
+    width: 100% !important;
+  }
+
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 1100px) and (min-width: 651px) {
+
+  .main-content {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+  }
+
+  .sidebar {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 14px !important;
+  }
+
+  .dashboard-column {
+    width: 100% !important;
+  }
+
+  .map-section {
+    width: 100% !important;
+  }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 650px) {
+
+  .main-content {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+
+  .sidebar {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+
+  .dashboard-column {
+    width: 100% !important;
+  }
+
+  .map-section {
+    width: 100% !important;
+  }
+
+}
+
+
+/* ============================================================
+   STEP 6 — AI PREVIEW FULL CONTENT
+   ============================================================ */
+
+@media (min-width: 1101px) {
+
+  .center-column .ai-card {
+    overflow: hidden !important;
+  }
+
+  .center-column .ai-preview {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .center-column .ai-preview-intro {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+  }
+
+  .center-column .ai-preview-grid {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+  }
+
+  .center-column .ai-preview-action {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+  }
+
+
+  /* Information cards */
+
+  .ai-preview-info-grid {
+    display: grid !important;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 8px !important;
+
+    width: 100% !important;
+  }
+
+  .ai-preview-info-card {
+    min-height: 66px !important;
+
+    padding: 9px !important;
+
+    border: 1px solid #dbe7f7 !important;
+
+    border-radius: 9px !important;
+
+    background: #f8fbff !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    justify-content: center !important;
+
+    text-align: center !important;
+
+    box-sizing: border-box !important;
+  }
+
+  .ai-preview-info-card span {
+    display: block !important;
+
+    margin-bottom: 4px !important;
+
+    color: #64748b !important;
+
+    font-size: .61rem !important;
+
+    font-weight: 800 !important;
+
+    line-height: 1.2 !important;
+  }
+
+  .ai-preview-info-card strong {
+    display: block !important;
+
+    color: #172b4d !important;
+
+    font-size: .69rem !important;
+
+    line-height: 1.25 !important;
+  }
+
+
+  /* Analysis summary */
+
+  .ai-analysis-summary-preview {
+    margin: 0 !important;
+
+    padding: 12px !important;
+
+    border: 1px solid #dbe5f0 !important;
+
+    border-radius: 9px !important;
+
+    background: #f4f8fc !important;
+
+    text-align: left !important;
+
+    box-sizing: border-box !important;
+  }
+
+  .summary-preview-title {
+    color: #172b4d !important;
+
+    font-size: .78rem !important;
+
+    font-weight: 800 !important;
+
+    margin-bottom: 5px !important;
+
+    text-align: center !important;
+  }
+
+  .ai-analysis-summary-preview p {
+    margin: 0 !important;
+
+    color: #64748b !important;
+
+    font-size: .65rem !important;
+
+    line-height: 1.4 !important;
+
+    text-align: center !important;
+  }
+
+
+  /* AI Pipeline */
+
+  .ai-pipeline {
+    margin: 0 !important;
+
+    padding: 10px !important;
+
+    border: 1px solid #e2e8f0 !important;
+
+    border-radius: 9px !important;
+
+    background: #ffffff !important;
+
+    box-sizing: border-box !important;
+  }
+
+  .ai-pipeline h3 {
+    margin: 0 0 8px !important;
+
+    color: #172b4d !important;
+
+    font-size: .76rem !important;
+
+    text-align: center !important;
+  }
+
+  .pipeline-grid {
+    display: grid !important;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 7px !important;
+  }
+
+  .pipeline-item {
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 7px !important;
+
+    min-height: 43px !important;
+
+    padding: 6px 7px !important;
+
+    border: 1px solid #e2e8f0 !important;
+
+    border-radius: 7px !important;
+
+    background: #f8fafc !important;
+
+    box-sizing: border-box !important;
+  }
+
+  .pipeline-item > span {
+    flex: 0 0 24px !important;
+
+    width: 24px !important;
+
+    height: 24px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+
+    background: #eff6ff !important;
+
+    color: #2563eb !important;
+
+    font-size: .58rem !important;
+
+    font-weight: 800 !important;
+  }
+
+  .pipeline-item div {
+    min-width: 0 !important;
+  }
+
+  .pipeline-item strong {
+    display: block !important;
+
+    color: #172b4d !important;
+
+    font-size: .64rem !important;
+
+    line-height: 1.15 !important;
+  }
+
+  .pipeline-item small {
+    display: block !important;
+
+    margin-top: 2px !important;
+
+    color: #94a3b8 !important;
+
+    font-size: .53rem !important;
+
+    line-height: 1.15 !important;
+  }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 650px) {
+
+  .ai-preview-info-grid,
+  .pipeline-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+}
+
+
+/* =========================================================
+   RISK ALERT MONITOR - FINAL UI
+   ========================================================= */
+
+.risk-alert-card {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 14px !important;
+  overflow: hidden !important;
+  background: #ffffff !important;
+}
+
+.risk-alert-header {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  margin-bottom: 10px !important;
+}
+
+.risk-alert-header h2 {
+  margin: 0 !important;
+  color: #172b4d !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+}
+
+.risk-alert-header p {
+  margin: 4px 0 0 !important;
+  color: #718096 !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+}
+
+.risk-alert-live {
+  flex-shrink: 0 !important;
+  padding: 5px 8px !important;
+  border-radius: 8px !important;
+  background: #e9f9f0 !important;
+  color: #16834b !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.4px !important;
+}
+
+.risk-alert-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+
+.risk-alert-item {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: block !important;
+  text-align: left !important;
+  padding: 8px 9px !important;
+  margin: 0 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 7px !important;
+  background: #f8fafc !important;
+  color: #172b4d !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.risk-alert-item:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 10px rgba(23, 43, 77, 0.12) !important;
+}
+
+.risk-alert-item.critical {
+  border-left: 4px solid #e53935 !important;
+}
+
+.risk-alert-item.high {
+  border-left: 4px solid #f59e0b !important;
+}
+
+.risk-alert-top {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 6px !important;
+  margin-bottom: 3px !important;
+}
+
+.risk-alert-level {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  color: #b91c1c !important;
+}
+
+.risk-alert-item.high .risk-alert-level {
+  color: #c2410c !important;
+}
+
+.risk-alert-top > strong {
+  font-size: 12px !important;
+  color: #172b4d !important;
+}
+
+.risk-alert-location {
+  font-size: 10px !important;
+  color: #4a5568 !important;
+  margin-bottom: 4px !important;
+}
+
+.risk-alert-terrain {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 5px 9px !important;
+  font-size: 9px !important;
+  color: #64748b !important;
+}
+
+.risk-alert-action {
+  margin-top: 4px !important;
+  text-align: right !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  color: #2563eb !important;
+}
+
+.risk-alert-status {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  min-height: 90px !important;
+  color: #64748b !important;
+  font-size: 12px !important;
+}
+
+.risk-alert-status p {
+  margin: 0 !important;
+}
+
+.risk-alert-status.error {
+  color: #b91c1c !important;
+}
+
+.risk-alert-note {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+  margin-top: 9px !important;
+  padding: 8px 9px !important;
+  border-radius: 7px !important;
+  background: #f1f5f9 !important;
+}
+
+.risk-alert-note strong {
+  color: #172b4d !important;
+  font-size: 10px !important;
+}
+
+.risk-alert-note span {
+  color: #64748b !important;
+  font-size: 9px !important;
+  line-height: 1.4 !important;
+}
+
+/* Keep right column cards separated */
+.right-column {
+  gap: 14px !important;
+}
+
+.right-column .risk-alert-card {
+  flex: 0 0 auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+
+/* Weather information inside Risk Alert Monitor */
+
+.risk-alert-weather {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 4px 8px !important;
+  margin-top: 6px !important;
+  padding-top: 6px !important;
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+.risk-alert-weather div {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 4px !important;
+  font-size: 8px !important;
+}
+
+.risk-alert-weather span {
+  color: #64748b !important;
+}
+
+.risk-alert-weather strong {
+  color: #334155 !important;
+  font-size: 9px !important;
+}
+
+.risk-alert-source {
+  margin-top: 5px !important;
+  font-size: 8px !important;
+  color: #94a3b8 !important;
+  text-align: right !important;
+}
+

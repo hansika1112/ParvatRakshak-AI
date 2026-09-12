@@ -25,3 +25,10 @@ data/processed/**
 data/external/ner_boundary/**
 !data/external/ner_boundary/**/
 !data/external/ner_boundary/**/.gitkeep
+
+# Local development backups
+*.backup
+*.before-*
+
+# Local backup copies
+*-backup
