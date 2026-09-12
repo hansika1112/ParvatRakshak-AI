@@ -44,8 +44,8 @@ function MapBounds({ locations }) {
     ]);
 
     map.fitBounds(bounds, {
-      padding: [30, 30],
-      maxZoom: 8
+      padding: [35, 35],
+      maxZoom: 7
     });
   }, [locations, map]);
 
