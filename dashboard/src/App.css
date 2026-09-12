@@ -965,3 +965,107 @@ footer {
     width: 100%;
   }
 }
+
+/* Emergency Monitoring */
+.emergency-card {
+  border: 1px solid #fecaca;
+  background: #fffafa;
+}
+
+.emergency-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.emergency-label {
+  display: inline-block;
+  color: #dc2626;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.emergency-card h2 {
+  margin: 5px 0 0;
+  color: #1e293b;
+  font-size: 1.05rem;
+}
+
+.emergency-total {
+  min-width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2);
+}
+
+.emergency-description {
+  margin: 12px 0;
+  color: #64748b;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.emergency-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.emergency-stat {
+  padding: 12px;
+  border-radius: 9px;
+  text-align: center;
+  border: 1px solid;
+}
+
+.emergency-stat-number {
+  font-size: 1.55rem;
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.emergency-stat span {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.emergency-stat.critical {
+  border-color: #fca5a5;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.emergency-stat.high {
+  border-color: #fdba74;
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.emergency-status {
+  margin-top: 12px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .emergency-stats {
+    grid-template-columns: 1fr;
+  }
+}

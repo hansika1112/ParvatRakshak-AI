@@ -106,6 +106,25 @@ function App() {
   const [reportSuccess, setReportSuccess] = useState(null);
   const [reportError, setReportError] = useState("");
 
+  const emergencyCounts = {
+    Critical: citizenReports.filter(
+      (report) => report.severity === "Critical"
+    ).length,
+    High: citizenReports.filter(
+      (report) => report.severity === "High"
+    ).length,
+    Medium: citizenReports.filter(
+      (report) => report.severity === "Medium"
+    ).length,
+    Low: citizenReports.filter(
+      (report) => report.severity === "Low"
+    ).length
+  };
+
+  const emergencyTotal =
+    emergencyCounts.Critical +
+    emergencyCounts.High;
+
   useEffect(() => {
     async function fetchCitizenReports() {
       try {
@@ -1163,6 +1182,52 @@ function App() {
               </button>
 
             </form>
+
+          </div>
+
+          <div className="sidebar-card emergency-card">
+
+            <div className="emergency-card-header">
+              <div>
+                <span className="emergency-label">
+                  Emergency Monitoring
+                </span>
+                <h2>Active Citizen Alerts</h2>
+              </div>
+
+              <div className="emergency-total">
+                {emergencyTotal}
+              </div>
+            </div>
+
+            <p className="emergency-description">
+              High and Critical citizen-reported incidents requiring
+              immediate attention.
+            </p>
+
+            <div className="emergency-stats">
+
+              <div className="emergency-stat critical">
+                <div className="emergency-stat-number">
+                  {emergencyCounts.Critical}
+                </div>
+                <span>Critical</span>
+              </div>
+
+              <div className="emergency-stat high">
+                <div className="emergency-stat-number">
+                  {emergencyCounts.High}
+                </div>
+                <span>High</span>
+              </div>
+
+            </div>
+
+            <div className="emergency-status">
+              {emergencyTotal > 0
+                ? "⚠️ Immediate attention required"
+                : "✅ No high-priority citizen alerts"}
+            </div>
 
           </div>
 
