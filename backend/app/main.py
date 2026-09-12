@@ -6,6 +6,7 @@ from backend.app.routes.locations import router as locations_router
 from backend.app.routes.weather import router as weather_router
 from backend.app.routes.analyze import router as analyze_router
 from backend.app.routes.reports import router as reports_router
+from backend.app.routes.alerts import router as alerts_router
 
 
 app = FastAPI(
@@ -51,3 +52,4 @@ app.include_router(locations_router)
 app.include_router(weather_router)
 app.include_router(analyze_router)
 app.include_router(reports_router)
+app.include_router(alerts_router)

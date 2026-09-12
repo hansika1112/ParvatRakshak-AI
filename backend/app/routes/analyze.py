@@ -4,6 +4,7 @@ import pandas as pd
 from fastapi import APIRouter, HTTPException, Query
 
 from backend.app.routes.weather import get_weather
+from backend.app.services.alert_engine import generate_alert
 from ml_model.risk_engine import predict_risk
 
 
@@ -23,7 +24,8 @@ DATA_FILE = (
 
 @router.get("/analyze-location")
 def analyze_location(
-    sl_no: int = Query(..., ge=1)
+    sl_no: int = Query(..., ge=1),
+    language: str = Query(default="English")
 ):
     """
     Analyze a historical GSI location using:
@@ -31,6 +33,7 @@ def analyze_location(
     - GSI terrain features
     - NASA POWER recent weather
     - XGBoost landslide risk model
+    - Multilingual alert engine
 
     Historical GSI records are used as locations.
     The returned risk is a current/prototype model prediction,
@@ -95,6 +98,11 @@ def analyze_location(
 
         prediction = predict_risk(features)
 
+        alert = generate_alert(
+            risk_level=prediction["risk_level"],
+            language=language
+        )
+
         return {
             "status": "success",
             "location": {
@@ -110,10 +118,17 @@ def analyze_location(
             "weather": weather,
             "features_used": features,
             "prediction": prediction,
+            "alert": alert,
         }
 
     except HTTPException:
         raise
+
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=422,
+            detail=str(exc)
+        )
 
     except Exception as exc:
         raise HTTPException(

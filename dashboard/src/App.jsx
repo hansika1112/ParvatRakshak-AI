@@ -86,6 +86,9 @@ function App() {
   const [error, setError] = useState("");
   const [riskError, setRiskError] = useState("");
 
+  // Multilingual alert language
+  const [alertLanguage, setAlertLanguage] = useState("English");
+
   // Citizen report state
   const [reportForm, setReportForm] = useState({
     latitude: "",
@@ -183,7 +186,7 @@ function App() {
         setRiskAnalysis(null);
 
         const response = await fetch(
-          `${API_URL}/risk/analyze-location?sl_no=${selectedLocation.sl_no}`
+          `${API_URL}/risk/analyze-location?sl_no=${selectedLocation.sl_no}&language=${encodeURIComponent(alertLanguage)}`
         );
 
         if (!response.ok) {
@@ -207,7 +210,7 @@ function App() {
     }
 
     fetchRiskAnalysis();
-  }, [selectedLocation]);
+  }, [selectedLocation, alertLanguage]);
 
   function handleReportChange(event) {
     const { name, value } = event.target;
@@ -824,6 +827,51 @@ function App() {
                     Probability:{" "}
                     {(riskAnalysis.prediction.risk_probability * 100).toFixed(2)}%
                   </span>
+
+                </div>
+
+                <div className={`alert-panel ${riskAnalysis.alert?.severity || ""}`}>
+
+                  <div className="alert-header">
+
+                    <div>
+                      <span className="alert-label">
+                        🚨 Multilingual Early Warning
+                      </span>
+
+                      <h3>
+                        {riskAnalysis.alert?.risk_level || riskLevel} Risk Alert
+                      </h3>
+                    </div>
+
+                    <select
+                      className="alert-language-select"
+                      value={alertLanguage}
+                      onChange={(event) =>
+                        setAlertLanguage(event.target.value)
+                      }
+                    >
+                      <option value="English">English</option>
+                      <option value="Hindi">हिंदी</option>
+                      <option value="Assamese">অসমীয়া</option>
+                    </select>
+
+                  </div>
+
+                  <p className="alert-message">
+                    {riskAnalysis.alert?.message ||
+                      "Alert message unavailable."}
+                  </p>
+
+                  <div className="alert-meta">
+                    <span>
+                      Language: {riskAnalysis.alert?.language || alertLanguage}
+                    </span>
+
+                    <span>
+                      Delivery: {riskAnalysis.alert?.delivery_status || "simulated"}
+                    </span>
+                  </div>
 
                 </div>
 
