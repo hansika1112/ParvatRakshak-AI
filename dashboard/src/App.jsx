@@ -161,8 +161,13 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
         setRiskAlertsLoading(true);
         setRiskAlertsError("");
 
+        const stateQuery =
+          selectedState === "All States"
+            ? ""
+            : `&state=${encodeURIComponent(selectedState)}`;
+
         const response = await fetch(
-          `${API_URL}/risk/alerts?limit=5`
+          `${API_URL}/risk/alerts?limit=5${stateQuery}`
         );
 
         if (!response.ok) {
@@ -188,7 +193,7 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
     );
 
     return () => clearInterval(interval);
-  }, []);
+  }, [selectedState]);
 
   useEffect(() => {
     async function fetchLocations() {
