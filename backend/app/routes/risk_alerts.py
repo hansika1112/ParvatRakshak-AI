@@ -336,6 +336,17 @@ def get_risk_alerts(
             "latitude": latitude,
             "longitude": longitude,
 
+            "district": (
+                str(row["district"])
+                if "district" in row and pd.notna(row["district"])
+                else "Unknown District"
+            ),
+            "state": (
+                str(row["state"])
+                if "state" in row and pd.notna(row["state"])
+                else "Unknown State"
+            ),
+
             "elevation": round(elevation, 2),
             "slope": round(slope, 2),
 

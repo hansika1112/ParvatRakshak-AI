@@ -146,6 +146,20 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
 
   const activeRiskAlerts = riskAlerts.length;
 
+  function selectRiskAlert(alert) {
+    if (!alert) return;
+
+    setSelectedLocation({
+      sl_no: alert.sl_no,
+      latitude: Number(alert.latitude),
+      longitude: Number(alert.longitude),
+      elevation: Number(alert.elevation),
+      slope: Number(alert.slope),
+      district: alert.district || "Unknown District",
+      state: alert.state || "Unknown State"
+    });
+  }
+
   useEffect(() => {
     async function fetchCitizenReports() {
       try {
@@ -207,7 +221,7 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
 
     const interval = setInterval(
       fetchRiskAlerts,
-      60000
+      300000
     );
 
     return () => clearInterval(interval);
@@ -467,7 +481,9 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
                 {riskAnalysis?.prediction?.risk_level || "—"}
               </strong>
               <span className="kpi-description">
-                Current Prototype Risk
+                {riskAnalysis?.prediction?.risk_score != null
+                  ? `Score: ${riskAnalysis.prediction.risk_score}/100`
+                  : "Select a location"}
               </span>
             </div>
           </div>
@@ -482,7 +498,7 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
                   : "—"}
               </strong>
               <span className="kpi-description">
-                Recent Weather
+                NASA POWER • Recent Weather
               </span>
             </div>
           </div>
@@ -1151,17 +1167,7 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
             <button
               key={`${alert.sl_no}-${index}`}
               className={`risk-alert-item ${alert.risk_level.toLowerCase()}`}
-              onClick={() => {
-                const location = locations.find(
-                  (item) => Number(item.sl_no) === Number(alert.sl_no)
-                );
-
-                if (location) {
-                  setSelectedLocation(location);
-                  setRiskError("");
-                  setRiskAnalysis(null);
-                }
-              }}
+              onClick={() => selectRiskAlert(alert)}
             >
 
               <div className="risk-alert-top">
@@ -1786,15 +1792,7 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
                   }}
                   eventHandlers={{
                     click: () => {
-                      const location = locations.find(
-                        (item) =>
-                          Number(item.sl_no) ===
-                          Number(alert.sl_no)
-                      );
-
-                      if (location) {
-                        setSelectedLocation(location);
-                      }
+                      selectRiskAlert(alert);
                     }
                   }}
                 >

@@ -7116,3 +7116,87 @@ footer {
   line-height: 1.35 !important;
 }
 
+
+/* =========================================================
+   KEY RISK FACTORS — CLEAN ANALYTICS GRID
+   ========================================================= */
+
+.center-column .risk-factors {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 12px !important;
+  padding: 0 !important;
+}
+
+.center-column .risk-factors h3 {
+  margin: 0 0 10px !important;
+  color: #1e293b !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+}
+
+.center-column .risk-factor-grid {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+  box-sizing: border-box !important;
+}
+
+.center-column .risk-factor {
+  min-width: 0 !important;
+  min-height: 76px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  padding: 10px !important;
+  border: 1px solid #dbeafe !important;
+  border-radius: 9px !important;
+  background: #f8fbff !important;
+  overflow: hidden !important;
+}
+
+.center-column .risk-factor span {
+  display: block !important;
+  width: 100% !important;
+  color: #64748b !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  white-space: normal !important;
+}
+
+.center-column .risk-factor strong {
+  display: block !important;
+  width: 100% !important;
+  color: #172b4d !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  white-space: normal !important;
+  word-break: normal !important;
+}
+
+.center-column .risk-factor small {
+  display: inline-block !important;
+  width: auto !important;
+  margin-top: 1px !important;
+  padding: 2px 6px !important;
+  border-radius: 5px !important;
+  background: #e2e8f0 !important;
+  color: #475569 !important;
+  font-size: 7px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+}
+
+@media (max-width: 700px) {
+  .center-column .risk-factor-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
