@@ -6998,3 +6998,121 @@ footer {
   line-height: 1.35 !important;
 }
 
+
+/* Current Risk Analytics */
+
+.risk-analytics-card {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 14px !important;
+  background: #ffffff !important;
+  overflow: hidden !important;
+}
+
+.risk-analytics-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.risk-analytics-header h2 {
+  margin: 0 !important;
+  color: #172b4d !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+}
+
+.risk-analytics-header p {
+  margin: 3px 0 0 !important;
+  color: #64748b !important;
+  font-size: 9px !important;
+}
+
+.risk-analytics-total {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 30px !important;
+  height: 30px !important;
+  padding: 0 7px !important;
+  border-radius: 8px !important;
+  background: #eff6ff !important;
+  color: #1d4ed8 !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+}
+
+.risk-analytics-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+}
+
+.risk-analytics-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  min-width: 0 !important;
+  padding: 7px 5px !important;
+  border-radius: 7px !important;
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.risk-analytics-icon {
+  font-size: 11px !important;
+}
+
+.risk-analytics-item div {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+}
+
+.risk-analytics-item strong {
+  color: #1e293b !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+}
+
+.risk-analytics-item span:not(.risk-analytics-icon) {
+  color: #64748b !important;
+  font-size: 7px !important;
+  margin-top: 2px !important;
+}
+
+.risk-analytics-footer {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+  margin-top: 8px !important;
+  padding-top: 8px !important;
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+.risk-analytics-footer div {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 6px !important;
+}
+
+.risk-analytics-footer span {
+  color: #64748b !important;
+  font-size: 8px !important;
+}
+
+.risk-analytics-footer strong {
+  color: #172b4d !important;
+  font-size: 11px !important;
+}
+
+.risk-analytics-note {
+  margin: 7px 0 0 !important;
+  color: #94a3b8 !important;
+  font-size: 7px !important;
+  line-height: 1.35 !important;
+}
+

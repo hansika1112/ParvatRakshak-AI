@@ -129,6 +129,23 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
     emergencyCounts.Critical +
     emergencyCounts.High;
 
+  const riskAlertCounts = {
+    Critical: riskAlerts.filter(
+      (alert) => alert.risk_level === "Critical"
+    ).length,
+    High: riskAlerts.filter(
+      (alert) => alert.risk_level === "High"
+    ).length,
+    Medium: riskAlerts.filter(
+      (alert) => alert.risk_level === "Medium"
+    ).length,
+    Low: riskAlerts.filter(
+      (alert) => alert.risk_level === "Low"
+    ).length
+  };
+
+  const activeRiskAlerts = riskAlerts.length;
+
   useEffect(() => {
     async function fetchCitizenReports() {
       try {
@@ -1096,7 +1113,7 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
       <div className="risk-alert-header">
         <div>
           <h2>🚨 Risk Alert Monitor</h2>
-          <p>Prototype terrain-based risk screening</p>
+          <p>Prototype weather-aware risk screening</p>
         </div>
 
         <span className="risk-alert-live">
@@ -1221,6 +1238,76 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
           detailed AI + weather analysis.
         </span>
       </div>
+
+    </div>
+
+    <div className="sidebar-card risk-analytics-card">
+
+      <div className="risk-analytics-header">
+        <div>
+          <h2>📊 Current Risk Summary</h2>
+          <p>Live screened risk alerts</p>
+        </div>
+
+        <span className="risk-analytics-total">
+          {activeRiskAlerts}
+        </span>
+      </div>
+
+      <div className="risk-analytics-grid">
+
+        <div className="risk-analytics-item critical">
+          <span className="risk-analytics-icon">🔴</span>
+          <div>
+            <strong>{riskAlertCounts.Critical}</strong>
+            <span>Critical</span>
+          </div>
+        </div>
+
+        <div className="risk-analytics-item high">
+          <span className="risk-analytics-icon">🟠</span>
+          <div>
+            <strong>{riskAlertCounts.High}</strong>
+            <span>High</span>
+          </div>
+        </div>
+
+        <div className="risk-analytics-item medium">
+          <span className="risk-analytics-icon">🟡</span>
+          <div>
+            <strong>{riskAlertCounts.Medium}</strong>
+            <span>Medium</span>
+          </div>
+        </div>
+
+        <div className="risk-analytics-item low">
+          <span className="risk-analytics-icon">🟢</span>
+          <div>
+            <strong>{riskAlertCounts.Low}</strong>
+            <span>Low</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div className="risk-analytics-footer">
+
+        <div>
+          <span>🚨 High-priority citizen reports</span>
+          <strong>{emergencyTotal}</strong>
+        </div>
+
+        <div>
+          <span>👥 Total citizen reports</span>
+          <strong>{citizenReports.length}</strong>
+        </div>
+
+      </div>
+
+      <p className="risk-analytics-note">
+        Summary reflects the currently screened risk alerts and
+        citizen reports available to the dashboard.
+      </p>
 
     </div>
 
