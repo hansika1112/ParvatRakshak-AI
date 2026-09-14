@@ -5,6 +5,8 @@ import uuid
 
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 
+from backend.app.services.alert_engine import generate_alert
+
 router = APIRouter(
     prefix="/reports",
     tags=["Citizen Reports"]
@@ -129,6 +131,16 @@ async def create_report(
 
         media_path.write_bytes(content)
 
+    # Generate an emergency alert for high-priority
+    # citizen reports.
+    emergency_alert = None
+
+    if severity in {"High", "Critical"}:
+        emergency_alert = generate_alert(
+            severity,
+            language
+        )
+
     report = {
         "report_id": report_id,
         "latitude": latitude,
@@ -140,7 +152,12 @@ async def create_report(
         "created_at": datetime.now(
             timezone.utc
         ).isoformat(),
-        "status": "received",
+        "status": (
+            "alert_generated"
+            if emergency_alert
+            else "received"
+        ),
+        "emergency_alert": emergency_alert,
     }
 
     reports = load_reports()
@@ -157,8 +174,15 @@ async def create_report(
 
     return {
         "status": "success",
-        "message": "Citizen landslide report received",
-        "report": report
+        "message": (
+            "Citizen landslide report received "
+            "and emergency alert generated"
+            if emergency_alert
+            else "Citizen landslide report received"
+        ),
+        "report": report,
+        "alert_generated": emergency_alert is not None,
+        "alert": emergency_alert,
     }
 
 
