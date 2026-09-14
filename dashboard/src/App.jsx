@@ -106,6 +106,7 @@ function App() {
 const [riskAlerts, setRiskAlerts] = useState([]);
 const [riskAlertsLoading, setRiskAlertsLoading] = useState(false);
 const [riskAlertsError, setRiskAlertsError] = useState("");
+  const [showRiskAlerts, setShowRiskAlerts] = useState(true);
   const [reportSuccess, setReportSuccess] = useState(null);
   const [reportError, setReportError] = useState("");
 
@@ -1591,6 +1592,61 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
 
           <div className="map-card">
 
+            <div className="map-controls">
+
+              <button
+                type="button"
+                className={`map-risk-toggle ${
+                  showRiskAlerts ? "active" : ""
+                }`}
+                onClick={() =>
+                  setShowRiskAlerts((current) => !current)
+                }
+              >
+                {showRiskAlerts
+                  ? "🚨 Hide Risk Alerts"
+                  : "🚨 Show Risk Alerts"}
+              </button>
+
+            </div>
+
+            <div className="risk-map-legend">
+
+              <div className="risk-map-legend-title">
+                Risk Map Legend
+              </div>
+
+              <div className="risk-map-legend-item">
+                <span className="legend-dot historical"></span>
+                Historical GSI
+              </div>
+
+              <div className="risk-map-legend-item">
+                <span className="legend-dot low"></span>
+                Low Risk
+              </div>
+
+              <div className="risk-map-legend-item">
+                <span className="legend-dot medium"></span>
+                Medium Risk
+              </div>
+
+              <div className="risk-map-legend-item">
+                <span className="legend-dot high"></span>
+                High Risk
+              </div>
+
+              <div className="risk-map-legend-item">
+                <span className="legend-dot critical"></span>
+                Critical Risk
+              </div>
+
+              <div className="risk-map-legend-note">
+                Current risk alerts are prototype AI + weather screening.
+              </div>
+
+            </div>
+
             <MapContainer
               center={[25.5, 92.5]}
               zoom={6}
@@ -1608,7 +1664,8 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
 
               <MapBounds locations={locations} />
 
-              {riskAlerts.map((alert) => (
+              {showRiskAlerts &&
+                riskAlerts.map((alert) => (
                 <CircleMarker
                   key={`risk-alert-${alert.sl_no}`}
                   center={[
@@ -1622,13 +1679,21 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
                   }
                   pathOptions={{
                     fillColor:
-                      alert.risk_level === "Critical"
-                        ? "#dc2626"
-                        : "#f97316",
+                      alert.risk_level === "Low"
+                        ? "#16a34a"
+                        : alert.risk_level === "Medium"
+                        ? "#eab308"
+                        : alert.risk_level === "High"
+                        ? "#f97316"
+                        : "#dc2626",
                     color:
-                      alert.risk_level === "Critical"
-                        ? "#991b1b"
-                        : "#c2410c",
+                      alert.risk_level === "Low"
+                        ? "#15803d"
+                        : alert.risk_level === "Medium"
+                        ? "#a16207"
+                        : alert.risk_level === "High"
+                        ? "#c2410c"
+                        : "#991b1b",
                     weight: 3,
                     fillOpacity: 0.9
                   }}
@@ -1652,9 +1717,13 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
                     <div>
 
                       <strong>
-                        {alert.risk_level === "Critical"
-                          ? "🔴"
-                          : "🟠"}{" "}
+                        {alert.risk_level === "Low"
+                          ? "🟢"
+                          : alert.risk_level === "Medium"
+                          ? "🟡"
+                          : alert.risk_level === "High"
+                          ? "🟠"
+                          : "🔴"}{" "}
                         {alert.risk_level} Risk Alert
                       </strong>
 

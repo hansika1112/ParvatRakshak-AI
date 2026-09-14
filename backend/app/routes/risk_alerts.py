@@ -192,9 +192,78 @@ def get_risk_alerts(
             )
         }
 
-    # First identify terrain candidates.
-    # This keeps external weather requests manageable.
-    candidates = df.head(20)
+    # Rank terrain candidates before making external weather requests.
+    # Higher slope and elevation receive higher screening priority.
+    terrain_df = df.copy()
+
+    terrain_df["slope_numeric"] = pd.to_numeric(
+        terrain_df["slope"],
+        errors="coerce"
+    )
+
+    terrain_df["elevation_numeric"] = pd.to_numeric(
+        terrain_df["elevation"],
+        errors="coerce"
+    )
+
+    terrain_df = terrain_df.dropna(
+        subset=[
+            "slope_numeric",
+            "elevation_numeric",
+            "latitude",
+            "longitude"
+        ]
+    )
+
+    if terrain_df.empty:
+        return {
+            "status": "success",
+            "total_locations": int(len(df)),
+            "screened_locations": 0,
+            "weather_success": 0,
+            "alerts": [],
+            "message": "No valid terrain candidates found."
+        }
+
+    # Normalize terrain features so slope and elevation
+    # can contribute on comparable scales.
+    slope_min = terrain_df["slope_numeric"].min()
+    slope_max = terrain_df["slope_numeric"].max()
+
+    elevation_min = terrain_df["elevation_numeric"].min()
+    elevation_max = terrain_df["elevation_numeric"].max()
+
+    if slope_max > slope_min:
+        slope_score = (
+            (terrain_df["slope_numeric"] - slope_min)
+            / (slope_max - slope_min)
+        )
+    else:
+        slope_score = 0.0
+
+    if elevation_max > elevation_min:
+        elevation_score = (
+            (terrain_df["elevation_numeric"] - elevation_min)
+            / (elevation_max - elevation_min)
+        )
+    else:
+        elevation_score = 0.0
+
+    terrain_df["terrain_priority_score"] = (
+        0.70 * slope_score
+        + 0.30 * elevation_score
+    )
+
+    # Keep weather API usage manageable while prioritizing
+    # terrain locations with higher screening priority.
+    candidates = (
+        terrain_df
+        .sort_values(
+            "terrain_priority_score",
+            ascending=False
+        )
+        .head(20)
+    )
 
     alerts = []
     weather_success = 0

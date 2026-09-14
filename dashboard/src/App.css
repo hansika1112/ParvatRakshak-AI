@@ -6895,3 +6895,106 @@ footer {
   text-align: right !important;
 }
 
+
+/* Professional Risk Map Controls */
+
+.map-card {
+  position: relative !important;
+}
+
+.map-controls {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  z-index: 1000 !important;
+}
+
+.map-risk-toggle {
+  border: 1px solid #cbd5e1 !important;
+  background: #ffffff !important;
+  color: #334155 !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18) !important;
+}
+
+.map-risk-toggle.active {
+  color: #991b1b !important;
+  border-color: #fecaca !important;
+}
+
+.map-risk-toggle:hover {
+  transform: translateY(-1px);
+}
+
+.risk-map-legend {
+  position: absolute !important;
+  bottom: 28px !important;
+  right: 14px !important;
+  z-index: 1000 !important;
+  width: 175px !important;
+  padding: 12px !important;
+  border-radius: 10px !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.18) !important;
+  box-sizing: border-box !important;
+}
+
+.risk-map-legend-title {
+  color: #172b4d !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  margin-bottom: 8px !important;
+}
+
+.risk-map-legend-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  color: #475569 !important;
+  font-size: 10px !important;
+  margin-bottom: 5px !important;
+}
+
+.legend-dot {
+  width: 10px !important;
+  height: 10px !important;
+  min-width: 10px !important;
+  border-radius: 50% !important;
+  display: inline-block !important;
+  border: 1px solid rgba(15, 23, 42, 0.2) !important;
+}
+
+.legend-dot.historical {
+  background: #2563eb !important;
+}
+
+.legend-dot.low {
+  background: #16a34a !important;
+}
+
+.legend-dot.medium {
+  background: #eab308 !important;
+}
+
+.legend-dot.high {
+  background: #f97316 !important;
+}
+
+.legend-dot.critical {
+  background: #dc2626 !important;
+}
+
+.risk-map-legend-note {
+  margin-top: 8px !important;
+  padding-top: 7px !important;
+  border-top: 1px solid #e2e8f0 !important;
+  color: #94a3b8 !important;
+  font-size: 8px !important;
+  line-height: 1.35 !important;
+}
+
