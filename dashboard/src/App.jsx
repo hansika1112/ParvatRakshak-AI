@@ -5,6 +5,7 @@ import RiskMap from "./pages/RiskMap.jsx";
 import AlertManagement from "./pages/AlertManagement.jsx";
 import RoadMonitoring from "./pages/RoadMonitoring.jsx";
 import CitizenReports from "./pages/CitizenReports.jsx";
+import PredictiveAnalytics from "./pages/PredictiveAnalytics.jsx";
 
 function PlaceholderPage({ title, subtitle }) {
   return (
@@ -47,12 +48,7 @@ function App() {
 
         <Route
           path="/analytics"
-          element={
-            <PlaceholderPage
-              title="Predictive Risk Analytics"
-              subtitle="This page will be migrated next."
-            />
-          }
+          element={<PredictiveAnalytics />}
         />
 
         <Route
