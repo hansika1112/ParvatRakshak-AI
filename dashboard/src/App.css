@@ -7425,3 +7425,421 @@ footer {
   }
 }
 
+
+/* =========================================================
+   PARVATRakshak AI — Application Navigation
+   Dedicated namespace to avoid legacy .sidebar conflicts
+   ========================================================= */
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  width: 100%;
+}
+
+.app-navigation {
+  width: 250px;
+  min-width: 250px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0f172a;
+  color: #f8fafc;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  z-index: 1000;
+}
+
+.app-navigation-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-navigation-logo {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 21px;
+}
+
+.app-navigation-brand strong,
+.app-navigation-brand span {
+  display: block;
+}
+
+.app-navigation-brand strong {
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.app-navigation-brand span {
+  margin-top: 3px;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.app-navigation-menu {
+  flex: 1;
+  padding: 18px 12px;
+}
+
+.app-navigation-section-title {
+  padding: 0 10px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #64748b;
+}
+
+.app-navigation-link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 44px;
+  margin-bottom: 5px;
+  padding: 0 12px;
+  border-radius: 9px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.app-navigation-link:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
+
+.app-navigation-link.active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.app-navigation-icon {
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+  font-size: 17px;
+}
+
+.app-navigation-label {
+  white-space: nowrap;
+}
+
+.app-navigation-footer {
+  padding: 14px 16px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-navigation-status {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+
+.app-navigation-status-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+.app-navigation-status strong,
+.app-navigation-status span {
+  display: block;
+}
+
+.app-navigation-status strong {
+  font-size: 11px;
+}
+
+.app-navigation-status div span {
+  margin-top: 2px;
+  color: #94a3b8;
+  font-size: 10px;
+}
+
+.app-navigation-footer small {
+  color: #64748b;
+  font-size: 9px;
+}
+
+.app-shell-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.app-shell-content > .header {
+  width: 100%;
+}
+
+.app-shell-content > .main-content {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .app-navigation {
+    width: 210px;
+    min-width: 210px;
+  }
+}
+
+@media (max-width: 700px) {
+  .app-shell {
+    display: block;
+  }
+
+  .app-navigation {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    min-height: auto;
+  }
+
+  .app-navigation-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .app-navigation-section-title {
+    width: 100%;
+  }
+
+  .app-navigation-link {
+    margin-bottom: 0;
+  }
+
+  .app-navigation-footer {
+    display: none;
+  }
+}
+
+/* =========================================================
+   FINAL APP SHELL — FULL VIEWPORT COMMAND CENTER
+   This override intentionally comes last so legacy dashboard
+   layout rules cannot create outer white margins.
+   ========================================================= */
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: none;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.app-shell {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.app-shell-content {
+  flex: 1 1 auto;
+  width: calc(100% - 250px);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.app-shell-content > .header {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.app-shell-content > .main-content {
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.app-shell-content > footer {
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* =========================================================
+   COMMAND CENTER HEADER — REFERENCE DESIGN
+   ========================================================= */
+
+.command-header {
+  width: 100%;
+  min-height: 118px;
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #123653 0%,
+      #12304a 55%,
+      #102b43 100%
+    );
+
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.command-header-title {
+  min-width: 0;
+}
+
+.command-header-title h1 {
+  margin: 0 0 6px;
+  color: #ffffff;
+  font-size: clamp(24px, 2vw, 31px);
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.6px;
+}
+
+.command-header-title p {
+  margin: 0;
+  color: #bfd0df;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.command-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.header-mode-button,
+.weather-ai-button {
+  height: 42px;
+  border-radius: 9px;
+  padding: 0 15px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.header-mode-button {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(2, 10, 20, 0.55);
+  color: #dbeafe;
+}
+
+.header-mode-button.mock {
+  color: #e2e8f0;
+}
+
+.header-mode-button.live {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: rgba(6, 78, 59, 0.55);
+  color: #34d399;
+}
+
+.live-indicator {
+  margin-right: 5px;
+  font-size: 13px;
+}
+
+.weather-ai-button {
+  border: 1px solid rgba(14, 165, 233, 0.4);
+  background: rgba(3, 65, 95, 0.55);
+  color: #38bdf8;
+}
+
+.header-officer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  margin-left: 4px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.header-officer-icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(14, 165, 233, 0.65);
+  border-radius: 50%;
+  color: #38bdf8;
+  font-size: 19px;
+}
+
+.header-officer strong,
+.header-officer span {
+  display: block;
+}
+
+.header-officer strong {
+  color: #f8fafc;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.header-officer span {
+  margin-top: 2px;
+  color: #94a3b8;
+  font-size: 10px;
+}
+
+@media (max-width: 1100px) {
+  .command-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .command-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .header-officer {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .command-header {
+    padding: 18px;
+  }
+
+  .command-header-actions {
+    gap: 7px;
+  }
+
+  .header-mode-button,
+  .weather-ai-button {
+    height: 38px;
+    padding: 0 10px;
+  }
+}
