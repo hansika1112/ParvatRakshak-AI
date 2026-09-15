@@ -9,6 +9,7 @@ import {
 
 import "leaflet/dist/leaflet.css";
 import "../App.css";
+import AppShell from "../components/AppShell.jsx";
 
 const API_URL = "http://127.0.0.1:8000";
 
@@ -438,23 +439,7 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
   const riskLevelClass = riskLevel.toLowerCase();
 
   return (
-    <div className="dashboard">
-
-      <header className="header">
-        <div>
-          <h1>🏔️ ParvatRakshak AI</h1>
-          <p>
-            AI-Based Early Warning & Landslide Risk Monitoring System
-          </p>
-        </div>
-
-        <div className="header-status">
-          <span className="status-dot"></span>
-          System Online
-        </div>
-      </header>
-
-      <main className="main-content">
+    <AppShell>
 
   <section className="kpi-section">
 
@@ -2181,13 +2166,7 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
 
         </section>
 
-</main>
-
-      <footer>
-        ParvatRakshak AI • Smart India Hackathon 2026 • SIH26001
-      </footer>
-
-    </div>
+      </AppShell>
   );
 }
 
