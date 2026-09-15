@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Dashboard from "./pages/Dashboard.jsx";
+import RiskMap from "./pages/RiskMap.jsx";
 
 function PlaceholderPage({ title, subtitle }) {
   return (
@@ -23,12 +24,7 @@ function App() {
 
         <Route
           path="/risk-map"
-          element={
-            <PlaceholderPage
-              title="GIS Landslide Surveillance Map"
-              subtitle="This page will be migrated from the current dashboard."
-            />
-          }
+          element={<RiskMap />}
         />
 
         <Route

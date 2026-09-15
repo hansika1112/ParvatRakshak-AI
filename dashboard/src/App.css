@@ -8246,3 +8246,594 @@ body {
 
 }
 
+
+/* =========================================================
+   PARVATRAKSHAK AI — GIS RISK MAP PAGE
+   Scoped specifically to RiskMap.jsx
+   ========================================================= */
+
+.risk-map-page {
+  width: 100%;
+  min-width: 0;
+  color: #172033;
+}
+
+/* Make the Risk Map page use the complete content width */
+.app-shell-content .main-content:has(.risk-map-page) {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 22px 28px 30px;
+  gap: 18px;
+}
+
+/* ---------- PAGE HEADER ---------- */
+
+.risk-map-page-header {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 4px;
+}
+
+.risk-map-page-header > div:first-child {
+  min-width: 0;
+}
+
+.risk-map-page .page-eyebrow {
+  display: inline-block;
+  margin-bottom: 7px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.risk-map-page-header h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+}
+
+.risk-map-page-header p {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.risk-map-page-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border: 1px solid #bbf7d0;
+  border-radius: 9px;
+  background: #f0fdf4;
+  color: #15803d;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.risk-map-page-status .status-dot {
+  width: 9px;
+  height: 9px;
+  background: #22c55e;
+}
+
+/* ---------- TOOLBAR ---------- */
+
+.risk-map-toolbar {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 16px;
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 11px;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05);
+}
+
+.risk-map-filter {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.risk-map-filter label {
+  color: #475569;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.risk-map-filter select {
+  min-width: 190px;
+  height: 38px;
+  padding: 0 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #172033;
+  font-size: 13px;
+  outline: none;
+}
+
+.risk-map-filter select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.risk-map-toolbar-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.risk-map-toolbar-stats > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.risk-map-toggles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.risk-map-toggles button {
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.risk-map-toggles button:hover {
+  border-color: #2563eb;
+  color: #1d4ed8;
+}
+
+.risk-map-toggles button.active {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+/* ---------- ERROR ---------- */
+
+.risk-map-page .error-message {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #fecaca;
+  border-radius: 9px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ---------- MAIN MAP + SIDE PANEL ---------- */
+
+.risk-map-main-card {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.75fr) minmax(330px, 0.75fr);
+  gap: 0;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 13px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.07);
+}
+
+.risk-map-map-container {
+  position: relative;
+  min-width: 0;
+  height: 650px;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.risk-map-map-container .leaflet-container {
+  width: 100%;
+  height: 100%;
+  min-height: 650px;
+  z-index: 1;
+}
+
+/* Leaflet controls */
+
+.risk-map-map-container .leaflet-control-zoom {
+  margin-top: 16px;
+  margin-left: 16px;
+  border: 0;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
+}
+
+.risk-map-map-container .leaflet-control-zoom a {
+  color: #172033;
+}
+
+/* ---------- MAP POPUPS ---------- */
+
+.risk-map-page .map-popup {
+  min-width: 190px;
+  color: #172033;
+}
+
+.risk-map-page .map-popup strong {
+  color: #172033;
+}
+
+.risk-map-page .map-popup p {
+  margin: 5px 0;
+  color: #64748b;
+  font-size: 12px;
+}
+
+/* ---------- SIDE ANALYSIS PANEL ---------- */
+
+.risk-map-side-panel {
+  min-width: 0;
+  height: 650px;
+  overflow-y: auto;
+  border-left: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+
+.risk-map-panel-header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 18px 15px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.risk-map-panel-header h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.risk-map-panel-header .page-eyebrow {
+  margin-bottom: 4px;
+}
+
+.selected-location-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* ---------- EMPTY LOCATION ---------- */
+
+.risk-map-empty {
+  display: flex;
+  min-height: 500px;
+  padding: 40px 24px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.risk-map-empty-icon {
+  margin-bottom: 16px;
+  font-size: 42px;
+}
+
+.risk-map-empty h3 {
+  margin: 0 0 10px;
+  color: #172033;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.risk-map-empty p {
+  max-width: 330px;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ---------- SELECTED LOCATION ---------- */
+
+.selected-location-details {
+  padding: 18px;
+}
+
+.selected-location-title {
+  margin-bottom: 15px;
+}
+
+.selected-location-title h3 {
+  margin: 0 0 4px;
+  color: #172033;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.selected-location-title p {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.location-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin-bottom: 14px;
+}
+
+.location-metrics > div {
+  padding: 11px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.location-metrics span {
+  display: block;
+  margin-bottom: 4px;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.location-metrics strong {
+  color: #172033;
+  font-size: 14px;
+}
+
+/* ---------- ANALYSIS RESULT ---------- */
+
+.map-analysis-result {
+  padding: 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 10px;
+  background: #f8fbff;
+}
+
+.map-analysis-risk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 13px;
+}
+
+.map-analysis-risk strong {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.map-analysis-risk span {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.map-analysis-weather {
+  margin-top: 12px;
+}
+
+.weather-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.weather-mini-grid > div {
+  padding: 9px;
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  background: #ffffff;
+}
+
+.weather-mini-grid span {
+  display: block;
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.weather-mini-grid strong {
+  display: block;
+  margin-top: 3px;
+  color: #172033;
+  font-size: 12px;
+}
+
+.map-analysis-alert {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.map-analysis-loading {
+  padding: 16px;
+  border-radius: 9px;
+  background: #f8fafc;
+  color: #64748b;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ---------- LEGEND ---------- */
+
+.risk-map-legend-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px 17px;
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 11px;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05);
+}
+
+.risk-map-legend-items {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.risk-map-legend-items > div {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.legend-dot.critical {
+  background: #dc2626;
+}
+
+.legend-dot.high {
+  background: #f97316;
+}
+
+.legend-dot.medium {
+  background: #eab308;
+}
+
+.legend-dot.low {
+  background: #16a34a;
+}
+
+.legend-dot.citizen {
+  background: #2563eb;
+}
+
+.risk-map-info {
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: right;
+}
+
+/* ---------- MOBILE / TABLET ---------- */
+
+@media (max-width: 1100px) {
+  .app-shell-content .main-content:has(.risk-map-page) {
+    padding: 18px 18px 26px;
+  }
+
+  .risk-map-main-card {
+    grid-template-columns: 1fr;
+  }
+
+  .risk-map-map-container {
+    height: 520px;
+  }
+
+  .risk-map-map-container .leaflet-container {
+    min-height: 520px;
+  }
+
+  .risk-map-side-panel {
+    height: auto;
+    max-height: none;
+    border-left: 0;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .risk-map-empty {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 760px) {
+  .risk-map-page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .risk-map-page-header h1 {
+    font-size: 26px;
+  }
+
+  .risk-map-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .risk-map-filter,
+  .risk-map-toolbar-stats,
+  .risk-map-toggles {
+    width: 100%;
+  }
+
+  .risk-map-filter select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .risk-map-map-container {
+    height: 430px;
+  }
+
+  .risk-map-map-container .leaflet-container {
+    min-height: 430px;
+  }
+
+  .risk-map-legend-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .risk-map-info {
+    text-align: left;
+  }
+}
+
