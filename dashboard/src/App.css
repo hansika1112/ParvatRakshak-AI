@@ -7843,3 +7843,144 @@ body,
     padding: 0 10px;
   }
 }
+
+/* =========================================================
+   COMMAND CENTER KPI CARDS
+   ========================================================= */
+
+.command-kpi-section {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.command-kpi-card {
+  min-width: 0;
+  min-height: 145px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 13px;
+
+  box-shadow:
+    0 4px 14px rgba(15, 23, 42, 0.07);
+
+  overflow: hidden;
+}
+
+.command-kpi-content {
+  min-width: 0;
+}
+
+.command-kpi-label {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #60748d;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.command-kpi-value {
+  display: block;
+  margin-bottom: 6px;
+
+  color: #172033;
+  font-size: 31px;
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.command-kpi-description {
+  display: block;
+
+  color: #8a9aae;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.command-kpi-icon {
+  width: 58px;
+  height: 58px;
+  min-width: 58px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+  font-size: 26px;
+}
+
+.command-kpi-card.critical {
+  border-top: 3px solid #ef4444;
+}
+
+.command-kpi-card.critical .command-kpi-value {
+  color: #dc2626;
+}
+
+.command-kpi-card.critical .command-kpi-icon {
+  background: #fee2e2;
+}
+
+.command-kpi-card.high {
+  border-top: 3px solid #f97316;
+}
+
+.command-kpi-card.high .command-kpi-value {
+  color: #ea580c;
+}
+
+.command-kpi-card.high .command-kpi-icon {
+  background: #ffedd5;
+}
+
+.command-kpi-card.rainfall {
+  border-top: 3px solid #14b8a6;
+}
+
+.command-kpi-card.rainfall .command-kpi-value {
+  color: #0f766e;
+}
+
+.command-kpi-card.rainfall .command-kpi-icon {
+  background: #ccfbf1;
+}
+
+.command-kpi-card.roads {
+  border-top: 3px solid #eab308;
+}
+
+.command-kpi-card.roads .command-kpi-value {
+  color: #a16207;
+}
+
+.command-kpi-card.roads .command-kpi-icon {
+  background: #fef3c7;
+}
+
+@media (max-width: 1050px) {
+  .command-kpi-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .command-kpi-section {
+    grid-template-columns: 1fr;
+  }
+
+  .command-kpi-card {
+    min-height: 125px;
+  }
+}

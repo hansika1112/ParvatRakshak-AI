@@ -438,72 +438,141 @@ const [riskAlertsError, setRiskAlertsError] = useState("");
 
   const riskLevelClass = riskLevel.toLowerCase();
 
+  const criticalRiskZones = riskAlertCounts.Critical;
+
+  const highRiskZones = riskAlertCounts.High;
+
+  const maxRainfall24h = riskAlerts.reduce(
+    (maximum, alert) => {
+      const rainfall = Number(alert.weather?.rainfall_1d);
+
+      if (!Number.isFinite(rainfall)) {
+        return maximum;
+      }
+
+      return Math.max(maximum, rainfall);
+    },
+    0
+  );
+
   return (
     <AppShell>
 
-  <section className="kpi-section">
+  <section className="command-kpi-section">
 
-          <div className="kpi-card">
-            <span className="kpi-icon">📍</span>
-            <div>
-              <span className="kpi-label">GSI Locations</span>
-              <strong className="kpi-value">
-                {loading ? "—" : locations.length.toLocaleString()}
-              </strong>
-              <span className="kpi-description">
-                Historical Records
-              </span>
-            </div>
-          </div>
+    <div className="command-kpi-card critical">
 
-          <div className="kpi-card">
-            <span className="kpi-icon">🤖</span>
-            <div>
-              <span className="kpi-label">AI Risk</span>
-              <strong
-                className={`kpi-value risk-${riskLevelClass || "none"}`}
-              >
-                {riskAnalysis?.prediction?.risk_level || "—"}
-              </strong>
-              <span className="kpi-description">
-                {riskAnalysis?.prediction?.risk_score != null
-                  ? `Score: ${riskAnalysis.prediction.risk_score}/100`
-                  : "Select a location"}
-              </span>
-            </div>
-          </div>
+      <div className="command-kpi-content">
+        <span className="command-kpi-label">
+          Critical Risk Zones
+        </span>
 
-          <div className="kpi-card">
-            <span className="kpi-icon">🌧️</span>
-            <div>
-              <span className="kpi-label">7-Day Rainfall</span>
-              <strong className="kpi-value">
-                {riskAnalysis?.weather?.rainfall_7d != null
-                  ? `${riskAnalysis.weather.rainfall_7d} mm`
-                  : "—"}
-              </strong>
-              <span className="kpi-description">
-                NASA POWER • Recent Weather
-              </span>
-            </div>
-          </div>
+        <strong className="command-kpi-value">
+          {riskAlertsLoading
+            ? "..."
+            : riskAlertsError
+            ? "—"
+            : criticalRiskZones}
+        </strong>
 
-          <div className="kpi-card">
-            <span className="kpi-icon">⛰️</span>
-            <div>
-              <span className="kpi-label">Slope</span>
-              <strong className="kpi-value">
-                {selectedLocation
-                  ? `${selectedLocation.slope.toFixed(2)}°`
-                  : "—"}
-              </strong>
-              <span className="kpi-description">
-                Selected Location
-              </span>
-            </div>
-          </div>
+        <span className="command-kpi-description">
+          {riskAlertsLoading
+            ? "Loading weather-aware screening..."
+            : riskAlertsError
+            ? "Risk alert data unavailable"
+            : "Active prototype screening"}
+        </span>
+      </div>
 
-        </section>
+      <div className="command-kpi-icon">
+        🚨
+      </div>
+
+    </div>
+
+    <div className="command-kpi-card high">
+
+      <div className="command-kpi-content">
+        <span className="command-kpi-label">
+          High Risk Zones
+        </span>
+
+        <strong className="command-kpi-value">
+          {riskAlertsLoading
+            ? "..."
+            : riskAlertsError
+            ? "—"
+            : highRiskZones}
+        </strong>
+
+        <span className="command-kpi-description">
+          {riskAlertsLoading
+            ? "Screening terrain + weather..."
+            : riskAlertsError
+            ? "Risk alert data unavailable"
+            : "Terrain + weather screening"}
+        </span>
+      </div>
+
+      <div className="command-kpi-icon">
+        🛡️
+      </div>
+
+    </div>
+
+    <div className="command-kpi-card rainfall">
+
+      <div className="command-kpi-content">
+        <span className="command-kpi-label">
+          24h Max Rainfall
+        </span>
+
+        <strong className="command-kpi-value">
+          {riskAlertsLoading
+            ? "..."
+            : riskAlertsError || maxRainfall24h === 0
+            ? "—"
+            : `${maxRainfall24h.toFixed(1)} mm`}
+        </strong>
+
+        <span className="command-kpi-description">
+          {riskAlertsLoading
+            ? "Fetching recent weather..."
+            : riskAlertsError
+            ? "Weather data unavailable"
+            : "NASA POWER • Screened locations"}
+        </span>
+      </div>
+
+      <div className="command-kpi-icon">
+        🌧️
+      </div>
+
+    </div>
+
+    <div className="command-kpi-card roads">
+
+      <div className="command-kpi-content">
+        <span className="command-kpi-label">
+          Vulnerable Roads
+        </span>
+
+        <strong className="command-kpi-value">
+          —
+        </strong>
+
+        <span className="command-kpi-description">
+          Road monitoring data pending
+        </span>
+      </div>
+
+      <div className="command-kpi-icon">
+        🛣️
+      </div>
+
+    </div>
+
+  </section>
 
   <aside className="sidebar">
 

@@ -1,3 +1,4 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -268,8 +269,7 @@ def get_risk_alerts(
     alerts = []
     weather_success = 0
 
-    for _, row in candidates.iterrows():
-
+    def process_candidate(row):
         try:
             elevation = float(row["elevation"])
             slope = float(row["slope"])
@@ -280,21 +280,17 @@ def get_risk_alerts(
             TypeError,
             ValueError
         ):
-            continue
+            return None
 
         try:
             weather = fetch_weather(
                 latitude,
                 longitude
             )
-
-            weather_success += 1
-
         except requests.RequestException:
-            continue
-
+            return None
         except Exception:
-            continue
+            return None
 
         features = {
             "elevation": elevation,
@@ -323,9 +319,9 @@ def get_risk_alerts(
         try:
             prediction = predict_risk(features)
         except Exception:
-            continue
+            return None
 
-        alerts.append({
+        return {
             "sl_no": (
                 int(row["sl_no"])
                 if "sl_no" in row
@@ -341,6 +337,7 @@ def get_risk_alerts(
                 if "district" in row and pd.notna(row["district"])
                 else "Unknown District"
             ),
+
             "state": (
                 str(row["state"])
                 if "state" in row and pd.notna(row["state"])
@@ -351,9 +348,7 @@ def get_risk_alerts(
             "slope": round(slope, 2),
 
             "risk_score": prediction["risk_score"],
-            "risk_probability": (
-                prediction["risk_probability"]
-            ),
+            "risk_probability": prediction["risk_probability"],
             "risk_level": prediction["risk_level"],
 
             "weather": {
@@ -373,7 +368,34 @@ def get_risk_alerts(
                 "using GSI terrain and NASA POWER "
                 "recent weather data."
             )
-        })
+        }
+
+    # NASA POWER requests are network-bound, so process
+    # the terrain-ranked candidates concurrently.
+    # Keep the worker count small to avoid excessive
+    # external API pressure.
+    max_workers = min(5, len(candidates))
+
+    with ThreadPoolExecutor(
+        max_workers=max_workers
+    ) as executor:
+
+        futures = [
+            executor.submit(
+                process_candidate,
+                row
+            )
+            for _, row in candidates.iterrows()
+        ]
+
+        for future in as_completed(futures):
+            result = future.result()
+
+            if result is None:
+                continue
+
+            alerts.append(result)
+            weather_success += 1
 
     alerts.sort(
         key=lambda item: item["risk_probability"],
