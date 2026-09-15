@@ -6,6 +6,7 @@ import AlertManagement from "./pages/AlertManagement.jsx";
 import RoadMonitoring from "./pages/RoadMonitoring.jsx";
 import CitizenReports from "./pages/CitizenReports.jsx";
 import PredictiveAnalytics from "./pages/PredictiveAnalytics.jsx";
+import Settings from "./pages/Settings.jsx";
 
 function PlaceholderPage({ title, subtitle }) {
   return (
@@ -53,12 +54,7 @@ function App() {
 
         <Route
           path="/settings"
-          element={
-            <PlaceholderPage
-              title="Command System Settings"
-              subtitle="This page will be migrated next."
-            />
-          }
+          element={<Settings />}
         />
 
         <Route
