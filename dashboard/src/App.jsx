@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import RiskMap from "./pages/RiskMap.jsx";
 import AlertManagement from "./pages/AlertManagement.jsx";
 import RoadMonitoring from "./pages/RoadMonitoring.jsx";
+import CitizenReports from "./pages/CitizenReports.jsx";
 
 function PlaceholderPage({ title, subtitle }) {
   return (
@@ -41,12 +42,7 @@ function App() {
 
         <Route
           path="/reports"
-          element={
-            <PlaceholderPage
-              title="Field Hazard Reporting System"
-              subtitle="This page will be migrated next."
-            />
-          }
+          element={<CitizenReports />}
         />
 
         <Route
