@@ -7200,3 +7200,228 @@ footer {
   }
 }
 
+
+/* =========================================================
+   Weather Trend & Risk Analytics
+   ========================================================= */
+
+.center-column .weather-analytics {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 11px;
+  background: #ffffff;
+}
+
+.center-column .weather-analytics-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.center-column .weather-analytics-header h3 {
+  margin: 0 0 3px;
+  color: #172b4d;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.center-column .weather-analytics-header p {
+  margin: 0;
+  color: #64748b;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.center-column .weather-data-badge {
+  flex-shrink: 0;
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+  font-size: 8px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.center-column .weather-chart-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: #475569;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.center-column .weather-chart-title strong {
+  color: #172b4d;
+  font-size: 11px;
+}
+
+.center-column .weather-chart-title small {
+  color: #64748b;
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.center-column .rainfall-chart {
+  height: 145px;
+  display: flex;
+  align-items: stretch;
+  gap: 5px;
+  padding: 8px 5px 0;
+  border-bottom: 1px solid #cbd5e1;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.center-column .rainfall-bar-wrapper {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
+.center-column .rainfall-bar-value {
+  min-height: 12px;
+  color: #334155;
+  font-size: 7px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.center-column .rainfall-bar-track {
+  width: 100%;
+  max-width: 17px;
+  height: 105px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.center-column .rainfall-bar {
+  width: 100%;
+  min-height: 4px;
+  border-radius: 4px 4px 1px 1px;
+  background: #3b82f6;
+  transition: height 0.25s ease;
+}
+
+.center-column .rainfall-date {
+  margin-top: 5px;
+  color: #64748b;
+  font-size: 7px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.center-column .weather-analytics-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.center-column .analytics-metric {
+  min-width: 0;
+  padding: 7px 6px;
+  border-radius: 7px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.center-column .analytics-metric span {
+  display: block;
+  margin-bottom: 3px;
+  color: #64748b;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.center-column .analytics-metric strong {
+  display: block;
+  color: #172b4d;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.center-column .weather-risk-indicator {
+  margin-top: 9px;
+  padding: 9px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.center-column .weather-risk-indicator > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.center-column .weather-risk-indicator span {
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.center-column .weather-risk-indicator strong {
+  color: #172b4d;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.center-column .weather-risk-indicator small {
+  display: block;
+  margin-top: 4px;
+  color: #64748b;
+  font-size: 8px;
+  line-height: 1.35;
+}
+
+.center-column .weather-chart-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  color: #94a3b8;
+  font-size: 7px;
+  line-height: 1.3;
+}
+
+.center-column .weather-analytics-empty {
+  padding: 18px 10px;
+  text-align: center;
+  color: #64748b;
+  font-size: 10px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+  .center-column .weather-analytics-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .center-column .weather-chart-footer {
+    flex-direction: column;
+  }
+
+  .center-column .rainfall-chart {
+    gap: 3px;
+  }
+}
+

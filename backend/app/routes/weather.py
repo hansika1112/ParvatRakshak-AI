@@ -112,6 +112,35 @@ def get_weather(
             latest_day
         )
 
+        # Build the real daily weather series for analytics.
+        # Missing values are represented as None.
+        daily_weather = []
+
+        for day in sorted(valid_dates):
+            daily_weather.append({
+                "date": day,
+                "rainfall": (
+                    round(valid_rainfall[day], 2)
+                    if day in valid_rainfall
+                    else None
+                ),
+                "temperature": (
+                    round(valid_value(temperature, day), 2)
+                    if valid_value(temperature, day) is not None
+                    else None
+                ),
+                "humidity": (
+                    round(valid_value(humidity, day), 2)
+                    if valid_value(humidity, day) is not None
+                    else None
+                ),
+                "wind_speed": (
+                    round(valid_value(wind_speed, day), 2)
+                    if valid_value(wind_speed, day) is not None
+                    else None
+                ),
+            })
+
         return {
             "status": "success",
             "source": "NASA POWER",
@@ -122,6 +151,7 @@ def get_weather(
             "rainfall_3d": round(rainfall_sum(3), 2),
             "rainfall_7d": round(rainfall_sum(7), 2),
             "rainfall_30d": round(rainfall_sum(30), 2),
+            "daily": daily_weather,
             "temperature": (
                 round(latest_temperature, 2)
                 if latest_temperature is not None
