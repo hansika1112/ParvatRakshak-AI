@@ -9627,3 +9627,537 @@ body {
   }
 }
 
+
+/* =========================================================
+   ROAD MONITORING — HIGHWAY CORRIDOR CONTROL CENTER
+   ========================================================= */
+
+.road-monitoring-page {
+  width: 100%;
+  min-height: calc(100vh - 130px);
+  padding: 24px 28px 32px;
+  background: #f4f7fb;
+}
+
+.road-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.road-page-header h1 {
+  margin: 5px 0 6px;
+  color: #172033;
+  font-size: clamp(26px, 2.3vw, 34px);
+  line-height: 1.15;
+}
+
+.road-page-header p {
+  margin: 0;
+  color: #667085;
+  font-size: 14px;
+}
+
+.road-system-status {
+  min-width: 245px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.06);
+}
+
+.road-status-dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.12);
+}
+
+.road-system-status strong,
+.road-system-status span {
+  display: block;
+}
+
+.road-system-status strong {
+  color: #172033;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.road-system-status span {
+  margin-top: 3px;
+  color: #8993a3;
+  font-size: 10px;
+}
+
+/* KPI */
+
+.road-kpi-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.road-kpi-card {
+  min-height: 128px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 19px;
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+}
+
+.road-kpi-card:nth-child(1) {
+  border-top: 3px solid #2563eb;
+}
+
+.road-kpi-card:nth-child(2) {
+  border-top: 3px solid #ea580c;
+}
+
+.road-kpi-card:nth-child(3) {
+  border-top: 3px solid #dc2626;
+}
+
+.road-kpi-card:nth-child(4) {
+  border-top: 3px solid #16a34a;
+}
+
+.road-kpi-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #f1f5f9;
+  font-size: 20px;
+}
+
+.road-kpi-card span,
+.road-kpi-card strong,
+.road-kpi-card small {
+  display: block;
+}
+
+.road-kpi-card span {
+  color: #667085;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+
+.road-kpi-card strong {
+  margin-top: 5px;
+  color: #172033;
+  font-size: 27px;
+  line-height: 1;
+}
+
+.road-kpi-card small {
+  margin-top: 6px;
+  color: #8a94a4;
+  font-size: 10px;
+}
+
+/* MAIN */
+
+.road-main-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(320px, 0.8fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.road-readiness-card,
+.road-info-card,
+.road-method-card {
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+.road-section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 17px 18px;
+  border-bottom: 1px solid #e7edf3;
+}
+
+.road-section-heading.compact {
+  padding-bottom: 14px;
+}
+
+.road-section-heading h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 16px;
+}
+
+.road-section-heading p {
+  margin: 4px 0 0;
+  color: #7b8797;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.road-pending-badge {
+  flex: 0 0 auto;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: #fff7ed;
+  color: #c2410c;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+/* EMPTY / DATA READINESS */
+
+.road-empty-state {
+  min-height: 390px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 42px 35px;
+  text-align: center;
+}
+
+.road-empty-icon {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 15px;
+  border-radius: 18px;
+  background: #eff6ff;
+  font-size: 34px;
+}
+
+.road-empty-state h3 {
+  margin: 0;
+  color: #263247;
+  font-size: 18px;
+}
+
+.road-empty-state > p {
+  max-width: 590px;
+  margin: 9px 0 20px;
+  color: #7b8797;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.road-data-requirements {
+  width: min(600px, 100%);
+  padding: 15px;
+  border: 1px solid #e5eaf0;
+  border-radius: 9px;
+  background: #fafbfd;
+  text-align: left;
+}
+
+.road-data-requirements > strong {
+  display: block;
+  margin-bottom: 10px;
+  color: #344054;
+  font-size: 10px;
+}
+
+.road-requirement-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.road-requirement-grid span {
+  padding: 9px 10px;
+  border: 1px solid #e7ebf0;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #667085;
+  font-size: 9px;
+}
+
+/* SIDE COLUMN */
+
+.road-side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.road-component-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.road-component-list > div {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 15px;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.road-component-list > div:last-child {
+  border-bottom: 0;
+}
+
+.component-icon {
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: #f1f5f9;
+  font-size: 14px;
+}
+
+.road-component-list strong,
+.road-component-list small {
+  display: block;
+}
+
+.road-component-list strong {
+  color: #344054;
+  font-size: 10px;
+}
+
+.road-component-list small {
+  margin-top: 3px;
+  color: #98a2b3;
+  font-size: 8px;
+  line-height: 1.35;
+}
+
+.road-component-list b {
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 7px;
+  letter-spacing: 0.04em;
+}
+
+.component-ready {
+  background: #ecfdf3;
+  color: #15803d;
+}
+
+.component-pending {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+/* METHOD */
+
+.road-method-card {
+  padding-bottom: 8px;
+}
+
+.road-method-card h2 {
+  margin: 0;
+  padding: 17px 18px 12px;
+  color: #172033;
+  font-size: 15px;
+}
+
+.road-method-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 18px;
+}
+
+.road-method-step > span {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: #172033;
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.road-method-step strong,
+.road-method-step small {
+  display: block;
+}
+
+.road-method-step strong {
+  color: #344054;
+  font-size: 10px;
+}
+
+.road-method-step small {
+  margin-top: 3px;
+  color: #98a2b3;
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+/* INTEGRATION */
+
+.road-integration-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.road-integration-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 14px;
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 9px;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+}
+
+.road-integration-icon {
+  width: 35px;
+  height: 35px;
+  flex: 0 0 35px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #f1f5f9;
+  font-size: 16px;
+}
+
+.road-integration-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+}
+
+.road-integration-title strong {
+  color: #344054;
+  font-size: 10px;
+}
+
+.road-integration-title span {
+  padding: 3px 5px;
+  border-radius: 4px;
+  font-size: 6px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.road-integration-title span.pending {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.road-integration-title span.ready {
+  background: #ecfdf3;
+  color: #15803d;
+}
+
+.road-integration-card p {
+  margin: 6px 0 0;
+  color: #8993a3;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+/* NOTICE */
+
+.road-prototype-notice {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  background: #fffbeb;
+}
+
+.road-prototype-notice strong {
+  color: #92400e;
+  font-size: 9px;
+}
+
+.road-prototype-notice p {
+  margin: 4px 0 0;
+  color: #92400e;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+  .road-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .road-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .road-side-column {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .road-integration-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .road-monitoring-page {
+    padding: 18px 14px 25px;
+  }
+
+  .road-page-header {
+    flex-direction: column;
+  }
+
+  .road-system-status {
+    width: 100%;
+  }
+
+  .road-side-column {
+    grid-template-columns: 1fr;
+  }
+
+  .road-requirement-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .road-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .road-empty-state {
+    padding: 32px 18px;
+  }
+}
+

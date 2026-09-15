@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard.jsx";
 import RiskMap from "./pages/RiskMap.jsx";
 import AlertManagement from "./pages/AlertManagement.jsx";
+import RoadMonitoring from "./pages/RoadMonitoring.jsx";
 
 function PlaceholderPage({ title, subtitle }) {
   return (
@@ -35,12 +36,7 @@ function App() {
 
         <Route
           path="/roads"
-          element={
-            <PlaceholderPage
-              title="Highway Corridor Vulnerability Monitoring"
-              subtitle="This page will be migrated next."
-            />
-          }
+          element={<RoadMonitoring />}
         />
 
         <Route
