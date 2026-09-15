@@ -1,14 +1,65 @@
+import { useLocation } from "react-router-dom";
+
+const pageHeaders = {
+  "/dashboard": {
+    title: "Regional Risk Command Overview",
+    subtitle:
+      "AI-Powered Landslide Risk Monitoring for North Eastern Region",
+  },
+
+  "/risk-map": {
+    title: "GIS Landslide Surveillance Map",
+    subtitle:
+      "Geospatial monitoring of terrain, weather-aware risk and hazard locations",
+  },
+
+  "/alerts": {
+    title: "Early Warning Incident Control Center",
+    subtitle:
+      "Live weather-aware risk monitoring and emergency alerts across NER",
+  },
+
+  "/roads": {
+    title: "Highway Corridor Vulnerability Monitoring",
+    subtitle:
+      "Monitor landslide vulnerability along critical highway corridors",
+  },
+
+  "/reports": {
+    title: "Field Hazard Reporting System",
+    subtitle:
+      "Citizen-submitted landslide and field hazard intelligence",
+  },
+
+  "/analytics": {
+    title: "Predictive Risk Analytics",
+    subtitle:
+      "AI-driven analysis of terrain, rainfall and landslide risk patterns",
+  },
+
+  "/settings": {
+    title: "Command System Settings",
+    subtitle:
+      "Configure monitoring, alert and command-center preferences",
+  },
+};
+
 export default function TopHeader() {
+  const location = useLocation();
+
+  const currentPage =
+    pageHeaders[location.pathname] || pageHeaders["/dashboard"];
+
   return (
     <header className="command-header">
       <div className="command-header-title">
-        <h1>Regional Risk Command Overview</h1>
-        <p>
-          AI-Powered Landslide Risk Monitoring for North Eastern Region
-        </p>
+        <h1>{currentPage.title}</h1>
+
+        <p>{currentPage.subtitle}</p>
       </div>
 
       <div className="command-header-actions">
+
         <button
           type="button"
           className="header-mode-button mock"
@@ -41,6 +92,7 @@ export default function TopHeader() {
             <span>MDoNER Command</span>
           </div>
         </div>
+
       </div>
     </header>
   );

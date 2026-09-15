@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Dashboard from "./pages/Dashboard.jsx";
 import RiskMap from "./pages/RiskMap.jsx";
+import AlertManagement from "./pages/AlertManagement.jsx";
 
 function PlaceholderPage({ title, subtitle }) {
   return (
@@ -29,12 +30,7 @@ function App() {
 
         <Route
           path="/alerts"
-          element={
-            <PlaceholderPage
-              title="Early Warning Incident Control Center"
-              subtitle="This page will be migrated next."
-            />
-          }
+          element={<AlertManagement />}
         />
 
         <Route
