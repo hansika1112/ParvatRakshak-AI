@@ -1,17 +1,22 @@
 import TopHeader from "./TopHeader.jsx";
+import Sidebar from "./Sidebar.jsx";
 
 export default function AppShell({ children }) {
   return (
-    <div className="dashboard">
-      <TopHeader />
+    <div className="app-shell">
+      <Sidebar />
 
-      <main className="main-content">
-        {children}
-      </main>
+      <div className="app-shell-content">
+        <TopHeader />
 
-      <footer>
-        ParvatRakshak AI • Smart India Hackathon 2026 • SIH26001
-      </footer>
+        <main className="main-content">
+          {children}
+        </main>
+
+        <footer>
+          ParvatRakshak AI • Smart India Hackathon 2026 • SIH26001
+        </footer>
+      </div>
     </div>
   );
 }
