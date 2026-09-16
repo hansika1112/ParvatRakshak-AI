@@ -32,3 +32,7 @@ data/external/ner_boundary/**
 
 # Local backup copies
 *-backup
+
+# Local OSM road-network extracts
+data/external/osm/*.osm.pbf
+data/external/osm/*.gpkg
